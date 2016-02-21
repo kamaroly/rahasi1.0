@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Rahasi\Http\Controllers;
 
-use App\Http\Requests;
-use App\Transformers\PayBillTransform;
+use Rahasi\Http\Requests;
+use Rahasi\Transformers\PayBillTransform;
 use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Http\Request;

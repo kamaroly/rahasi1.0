@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Rahasi\Exceptions;
 
 use Exception;
 use Illuminate\Validation\ValidationException;

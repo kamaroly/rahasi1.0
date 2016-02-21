@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Rahasi\Http\Controllers\Auth;
 
-use App\User;
+use Rahasi\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Rahasi\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

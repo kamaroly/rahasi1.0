@@ -1,5 +1,5 @@
 <?php 
-namespace App\Transformers;
+namespace Rahasi\Transformers;
 use League\Fractal\TransformerAbstract;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Rahasi\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

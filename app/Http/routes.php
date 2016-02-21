@@ -25,10 +25,9 @@ Route::get('/',['as'=>'home', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});
+ Route::get('/dashboard',function(){
+ 	return view('welcome');
+ });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:5'], function () {
 	   Route::resource('paybill', 'PayBillController');
