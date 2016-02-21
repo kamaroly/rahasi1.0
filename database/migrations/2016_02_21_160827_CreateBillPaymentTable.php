@@ -12,7 +12,7 @@ class CreateBillPaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('BillPayments', function (Blueprint $table) {
+        Schema::create('bill_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('transactionid', 40);
             $table->string('merchant_number');
@@ -23,6 +23,8 @@ class CreateBillPaymentTable extends Migration
             $table->string('response_description');
             $table->string('payment_reference');
             $table->text('raw_request')->nullable();
+            $table->text('raw_response')->nullable();
+            $table->string('merchant_host');
             $table->integer('api_key_id', false, true)->nullable();
             $table->string('ip_address');
             $table->timestamps();
@@ -30,6 +32,8 @@ class CreateBillPaymentTable extends Migration
             $table->index('method');
             $table->index('merchant_number');
             $table->index('transactionid');
+
+            $table->unique('transactionid');
             $table->foreign('api_key_id')->references('id')->on('api_keys');
         });
     }

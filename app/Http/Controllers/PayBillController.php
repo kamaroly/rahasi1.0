@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Transformers\PayBillTransform;
-use EllipseSynergie\ApiResponse\Laravel\Response;
 use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
+use EllipseSynergie\ApiResponse\Laravel\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 
 class PayBillController extends ApiGuardController
@@ -17,10 +18,12 @@ class PayBillController extends ApiGuardController
         ]
     ];
 
+    protected $key;
+
 	function __construct(Response $response) 
     {
         $this->response = $response;
-
+        $this->key = request()->header(Config::get('apiguard.keyName', 'X-Authorization'));
     	$this->data  = [
                  'msisdn'=>'250726044221',
                  'company_id'=>'ELECT',
@@ -39,6 +42,7 @@ class PayBillController extends ApiGuardController
 	 */
     public function index()
     {
+
     	 try {
 
         	return $this->response->withCollection($this->data, new PayBillTransform);
