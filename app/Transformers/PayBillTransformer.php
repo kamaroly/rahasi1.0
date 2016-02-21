@@ -19,4 +19,4 @@ use League\Fractal\TransformerAbstract;
              ];
 	}
 
- } ?>
+ } 
