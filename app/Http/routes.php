@@ -29,6 +29,12 @@ Route::get('/',['as'=>'home', function () {
  	return view('welcome');
  });
 
+ Route::group(['prefix'=>'settings'],function(){
+	Route::get('keys/',['as'=>'settings.keys','uses'=>'\Rahasi\Http\Controllers\SettingContoller@keys']);
+	Route::get('keys/{environment}',['as'=>'settings.keys.generate','uses'=>'\Rahasi\Http\Controllers\SettingContoller@generateKey']);
+
+});
+
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:5'], function () {
 	   Route::resource('paybill', 'PayBillController');
 });

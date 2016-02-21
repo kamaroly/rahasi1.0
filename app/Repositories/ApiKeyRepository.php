@@ -52,6 +52,27 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
 	 * @return array     
 	 */
 	public function getKeysByUser($userId){
-		return (new ApiKey)->where('user_id',$userId)->get();
+
+		$apiKeys = new \stdClass();
+
+		$keys = (new ApiKey)->where('user_id',$userId)->get();
+
+		// Formatting keys
+		foreach($keys as $key) {
+
+			switch (strtolower($key->environment)) {
+				case 'live':
+					$apiKeys->live = $key->key;
+					break;	
+				case 'test':
+					$apiKeys->test = $key->key;
+					break;				
+				default:
+
+					break;
+			}
+		}
+
+		return $apiKeys;
 	}
 }
