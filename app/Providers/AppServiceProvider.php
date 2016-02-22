@@ -2,7 +2,9 @@
 
 namespace Rahasi\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Rahasi\Repositories\ApiKeyRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen('sentinel.user.registered','\Rahasi\Listeners\UserRegisteredListener@handle', 10);
     }
 
     /**
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+       
     }
 }

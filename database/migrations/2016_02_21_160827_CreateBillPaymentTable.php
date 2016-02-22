@@ -15,13 +15,13 @@ class CreateBillPaymentTable extends Migration
         Schema::create('bill_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('transactionid', 40);
-            $table->string('merchant_number');
+            $table->string('external_transactionid');
+            $table->string('merchant_code');
             $table->string('description');
-            $table->string('method', 6);
+            $table->string('reference_number');
             $table->decimal('amount',10,2);
             $table->string('response_code');
             $table->string('response_description');
-            $table->string('payment_reference');
             $table->text('raw_request')->nullable();
             $table->text('raw_response')->nullable();
             $table->string('merchant_host');
@@ -29,8 +29,7 @@ class CreateBillPaymentTable extends Migration
             $table->string('ip_address');
             $table->timestamps();
 
-            $table->index('method');
-            $table->index('merchant_number');
+            $table->index('merchant_code');
             $table->index('transactionid');
 
             $table->unique('transactionid');
@@ -45,6 +44,6 @@ class CreateBillPaymentTable extends Migration
      */
     public function down()
     {
-        Schema::drop('BillPayments');
+        Schema::drop('bill_payments');
     }
 }

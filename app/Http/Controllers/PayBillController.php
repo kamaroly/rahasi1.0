@@ -2,20 +2,34 @@
 
 namespace Rahasi\Http\Controllers;
 
-use Rahasi\Http\Requests;
-use Rahasi\Transformers\PayBillTransform;
 use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Rahasi\Http\Requests;
+use Rahasi\Http\Requests\PayBillPostRequest;
+use Rahasi\Transformers\PayBillTransform;
 
 
 class PayBillController extends ApiGuardController
 {
-	 protected $apiMethods = [
+    protected $apiMethods = [
         'show' => [
-            'logged' => true
-        ]
+            'limits' => [
+                'method' => [
+                    'increment' => '1 minutes',
+                    'limit' => 60
+                ]
+            ]
+        ],
+        'store' => [
+            'limits' => [
+                'method' => [
+                    'increment' => '1 minutes',
+                    'limit' => 60
+                ]
+            ]
+        ],
     ];
 
     protected $key;
@@ -54,6 +68,11 @@ class PayBillController extends ApiGuardController
         }
     }
 
+    /**
+     * Show pay bill transaction by its Id
+     * @param  integer $id 
+     * @return json  
+     */
     public function show($id)
     {
         try {
@@ -67,5 +86,15 @@ class PayBillController extends ApiGuardController
             return $this->response->errorNotFound();
 
         }
+    }
+
+    /**
+     * Store paybill transactino
+     * @param  PayBillPostRequest $request
+     * @return json
+     */
+    public function store(PayBillPostRequest $request)
+    {
+        dd($request);
     }
 }

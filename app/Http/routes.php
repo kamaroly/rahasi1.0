@@ -35,6 +35,6 @@ Route::get('/',['as'=>'home', function () {
 
 });
 
-Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:5'], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function () {
 	   Route::resource('paybill', 'PayBillController');
 });
