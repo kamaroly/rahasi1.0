@@ -23,18 +23,17 @@ class PayBillPostRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-        ];
+       $this->all();
+
+       return [
+                  'transactionid'    =>'required|alpha_dash',
+                  'merchant_code'    =>'required|alpha_dash',
+                  'description'      =>'required',
+                  'reference_number' =>'required|alpha_dash',
+                  'amount'           =>'required|numeric',
+              ];
+
     }
 
-    public function all()
-    {
-
-        $request = trim(file_get_contents('php://input'));
-
-        $request = (array) json_decode($request);
-
-        return $request;
-    }
+ 
 }

@@ -6,6 +6,7 @@ use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Validator;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
 use Rahasi\Transformers\PayBillTransform;
@@ -38,15 +39,6 @@ class PayBillController extends ApiGuardController
     {
         $this->response = $response;
         $this->key = request()->header(Config::get('apiguard.keyName', 'X-Authorization'));
-    	$this->data  = [
-                 'msisdn'=>'250726044221',
-                 'company_id'=>'ELECT',
-                 'reference'=>'04223731771',
-                 'amount'=>100,
-                 'api_key_id'=>'8aaf19d386b3277451fbfd2c8f3b3422d6346d69',
-                 '_token' =>csrf_token(),
-                 ];	
-        
         parent::__construct();
 	}
 
@@ -93,8 +85,16 @@ class PayBillController extends ApiGuardController
      * @param  PayBillPostRequest $request
      * @return json
      */
-    public function store(PayBillPostRequest $request)
+    public function store(Request $request)
     {
-        dd($request);
+        $inputs = (array) json_decode($request->getContent());
+
+        $validations = Validator::make($inputs,(new PayBillPostRequest)->rules());
+        
+        if ($validations->fails()) {
+           return $this->response->errorWrongArgsValidator($validations);
+        }
+
+
     }
 }
