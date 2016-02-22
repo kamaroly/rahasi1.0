@@ -2,6 +2,7 @@
 namespace Rahasi\Repositories;
 use Chrisbjr\ApiGuard\Models\ApiKey;
 use Rahasi\Contracts\ApiKeyRepositoryContract;
+use Rahasi\DataTransfers\ApiKeysDataTranser;
 use Rahasi\Exceptions\ApiKeyNotGeneratedException;
 use Rahasi\Exceptions\InvalidEnvironmentException;
 
@@ -53,7 +54,7 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
 	 */
 	public function getKeysByUser($userId){
 
-		$apiKeys = new \stdClass();
+		$apiKeys = new ApiKeysDataTranser();
 
 		$keys = (new ApiKey)->where('user_id',$userId)->get();
 
@@ -62,15 +63,18 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
 
 			switch (strtolower($key->environment)) {
 				case 'live':
-					$apiKeys->live = $key->key;
+					$apiKeys>setLiveKey($key->key);
 					break;	
 				case 'test':
-					$apiKeys->test = $key->key;
+					$apiKeys->setTestKey($key->key);
 					break;				
 				default:
 
 					break;
 			}
+
+			// Don't forget to set user ID
+			$apiKeys->setUserId($key->user_id);
 		}
 
 		return $apiKeys;
