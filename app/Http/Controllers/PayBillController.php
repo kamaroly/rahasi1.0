@@ -87,7 +87,17 @@ class PayBillController extends ApiGuardController
      */
     public function store(Request $request)
     {
-        $inputs = (array) json_decode($request->getContent());
+        $inputs = $request->getContent();
+
+        if (!isJson($inputs)) {
+            $response['error']['code'] = 'GEN-WRONG-ARGS';
+            $response['error']['http_code'] = 400;
+            $response['error']['message'] = trans('general.invalid_json_input');
+            $this->response->setStatusCode(400);
+            return $this->response->withArray($response);
+        }
+
+        $inputs = (array) json_decode($inputs);
 
         $validations = Validator::make($inputs,(new PayBillPostRequest)->rules());
         

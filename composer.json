@@ -21,6 +21,9 @@
         "classmap": [
             "database"
         ],
+        "files":[
+            "app/Helpers/Validators.php"
+        ],
         "psr-4": {
             "Rahasi\\": "app/"
         }
