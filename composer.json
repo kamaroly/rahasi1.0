@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "rydurham/sentinel": "~2.3",
-        "chrisbjr/api-guard": "dev-master"
+        "chrisbjr/api-guard": "dev-master",
+        "guzzlehttp/guzzle": "6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

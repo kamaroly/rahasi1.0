@@ -29,6 +29,9 @@ class PayBillRepository implements PayBillRepositoryInterface
 		$data['transactionid'] = $this->generateKey();
 
 		// Determine which merchant host to  use
+		/** 
+		 * @todo proper resolution of the merchant host 
+		 */
 		$data['merchant_host'] = '127.0.0.1';
 
 		// Call external services
@@ -40,6 +43,8 @@ class PayBillRepository implements PayBillRepositoryInterface
 		$response['status']    = $billing->response_status;
 		$data['response_description'] = $response['description'] = $billing->response_description;
 		$response['transactionid']    = $billing->transactionId;
+
+
 		// Unset un necessary information 
 		unset($data['key']);
 		// save information to the database;
