@@ -11,6 +11,12 @@ use Rahasi\Exceptions\InvalidEnvironmentException;
 */
 class ApiKeyRepository implements ApiKeyRepositoryContract
 {
+	protected $apiKey;
+
+	function __construct(ApiKey $apiKey)
+	{
+		$this->apiKey = $apiKey;
+	}
 
 	/**
 	 * Generate Key per user
@@ -79,4 +85,21 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
 
 		return $apiKeys;
 	}
+
+	/**
+     * @param $key
+     * @return ApiKeyRepository
+     */
+    public function getByKey($key)
+    {
+        $apiKey = $this->apiKey->where('key', '=', $key)
+            	  			   ->first();
+
+        if (empty($apiKey) || $apiKey->exists == false) {
+            return null;
+        }
+
+        return $apiKey;
+    }
+
 }

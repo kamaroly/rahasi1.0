@@ -25,15 +25,19 @@ Route::get('/',['as'=>'home', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
- Route::get('/dashboard',function(){
- 	return view('welcome');
+ Route::get('/test',function(){
+ 	return strlen(time());
  });
 
 Route::group(['middleware' => ['web']], function () 
 {
- 	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function(){
+ 	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function()
+ 	{
 		Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
-		Route::get('keys/{environment}/{userid}',['as'=>'settings.keys.generate','uses'=>'SettingContoller@generateKey']);
+		Route::get('keys/{environment}/{userid}',
+						  ['as'=>'settings.keys.generate',
+						   'uses'=>'SettingContoller@generateKey'
+					]);
 	});
 });
 

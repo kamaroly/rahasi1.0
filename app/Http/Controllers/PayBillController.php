@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
+use Rahasi\Repositories\PayBillRepository;
 use Rahasi\Transformers\PayBillTransform;
 
 
@@ -34,10 +35,12 @@ class PayBillController extends ApiGuardController
     ];
 
     protected $key;
+    protected $payBill;
 
-	function __construct(Response $response) 
+	function __construct(Response $response,PayBillRepository $payBill) 
     {
         $this->response = $response;
+        $this->payBill  = $payBill;
         $this->key = request()->header(Config::get('apiguard.keyName', 'X-Authorization'));
         parent::__construct();
 	}
@@ -105,6 +108,15 @@ class PayBillController extends ApiGuardController
            return $this->response->errorWrongArgsValidator($validations);
         }
 
-        // Call PayBillRepository
+        // Everything in terms of validation looks good so far
+        // now let's proceed with the payment of the bill
+        $inputs['ip_address']  =  $request->getClientIp();
+        $inputs['raw_request'] =  $request->getContent();
+        $inputs['key']         =  $this->key;
+
+        $payBill = (array) $this->payBill->transact($inputs);
+
+        return $payBill;
+
     }
 }
