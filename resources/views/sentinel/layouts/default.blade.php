@@ -57,6 +57,11 @@
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
 	            @if (Sentry::check())
+	            <li {!! (Request::is('settings') ? 'class="active"' : '') !!}>
+	            <a href="{{ route('settings.keys') }}">
+	             {{ trans('navigation.settings') }}
+	            </a>
+				</li>
 				<li {!! (Request::is('profile') ? 'class="active"' : '') !!}><a href="{{ route('sentinel.profile.show') }}">{{ Sentry::getUser()->email }}</a>
 				</li>
 				<li>

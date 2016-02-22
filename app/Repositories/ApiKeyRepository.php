@@ -63,7 +63,7 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
 
 			switch (strtolower($key->environment)) {
 				case 'live':
-					$apiKeys>setLiveKey($key->key);
+					$apiKeys->setLiveKey($key->key);
 					break;	
 				case 'test':
 					$apiKeys->setTestKey($key->key);

@@ -17,7 +17,6 @@ class SettingContoller extends Controller
 	public function __construct(ApiKeyRepository $apikey)
 	{
 		$this->apikey = $apikey;
-
 		parent::__construct();
 	}
 
@@ -29,7 +28,9 @@ class SettingContoller extends Controller
 	{
 		try
 		{
-		  dd($this->apikey->getKeysByUser(1));
+		  $apikeys = $this->apikey->getKeysByUser($this->user->id);
+
+		  return view('settings.apikeys',compact('apikeys'));
 		}
 		catch(Exception $ex){
 			return $ex->getMessage();
@@ -41,22 +42,20 @@ class SettingContoller extends Controller
 	 * @param  string $environment environment for the key
 	 * @return object
 	 */
-	public function generateKey($environment='test')
+	public function generateKey($environment='test',$userid)
 	{		
 		try{
-			$key = $this->apikey->generateKey(1,$environment);
-			if(!is_null($key)){
-				return $key->key;
-			}
+			$key = $this->apikey->generateKey($userid,$environment);
+			return $this->keys();
 		}
 		catch (InvalidEnvironmentException $ex){
-			return $ex->getMessage();
+			return $this->keys();
 		}
 		catch(ApiKeyNotGeneratedException $ex){
-			return $ex->getMessage();
+			return $this->keys();
 		}
 		catch(\Exception $ex){
-			return trans('general.internal_server_error_occured');
+			return $this->keys();
 		}
 	}
 }

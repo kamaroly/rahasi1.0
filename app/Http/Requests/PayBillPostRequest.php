@@ -30,11 +30,11 @@ class PayBillPostRequest extends Request
 
     public function all()
     {
-        $attributes = parent::all();
 
         $request = trim(file_get_contents('php://input'));
 
         $request = (array) json_decode($request);
-        dd($request);
+
+        return $request;
     }
 }

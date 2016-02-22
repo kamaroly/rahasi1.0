@@ -29,10 +29,12 @@ Route::get('/',['as'=>'home', function () {
  	return view('welcome');
  });
 
- Route::group(['prefix'=>'settings'],function(){
-	Route::get('keys/',['as'=>'settings.keys','uses'=>'\Rahasi\Http\Controllers\SettingContoller@keys']);
-	Route::get('keys/{environment}',['as'=>'settings.keys.generate','uses'=>'\Rahasi\Http\Controllers\SettingContoller@generateKey']);
-
+Route::group(['middleware' => ['web']], function () 
+{
+ 	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function(){
+		Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
+		Route::get('keys/{environment}/{userid}',['as'=>'settings.keys.generate','uses'=>'SettingContoller@generateKey']);
+	});
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function () {
