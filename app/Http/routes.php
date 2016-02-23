@@ -26,7 +26,8 @@ Route::get('/',['as'=>'home', function () {
 |
 */
  Route::get('/test',function(){
- 	return strlen(time());
+ 	$user = Rahasi\Models\User::find(1);
+ 	return $user->bills;
  });
 
 Route::group(['middleware' => ['web']], function () 
