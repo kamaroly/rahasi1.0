@@ -15,4 +15,12 @@ class Merchant extends Model
 	{
 	    return $this->belongsTo('Rahasi\Models\User', 'user_id');
 	}
+
+	/**
+	 * Get the user that owns the phone.
+	 */
+	public function bills()
+	{
+	    return $this->hasMany('Rahasi\Models\BillPayment', 'merchant_code','merchant_code');
+	}
 }

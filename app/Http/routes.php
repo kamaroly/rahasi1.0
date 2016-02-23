@@ -27,7 +27,8 @@ Route::get('/',['as'=>'home', function () {
 */
  Route::get('/test',function(){
  	$user = Rahasi\Models\User::find(1);
- 	return $user->bills;
+ 	$merchant = Rahasi\Models\Merchant::first();
+ 	return $merchant->bills;
  });
 
 Route::group(['middleware' => ['web']], function () 
