@@ -40,8 +40,13 @@ Route::group(['middleware' => ['web']], function ()
 						   'uses'=>'SettingContoller@generateKey'
 					]);
 	});
+
+	Route::group(['prefix'=>'bills','middleware'=>'sentry.auth'],function()
+ 	{
+		Route::get('/',['as'=>'bills.index','uses'=>'PayBillController@index']);
+	});
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function () {
-	   Route::resource('paybill', 'Apis\PayBillController');
+	   Route::resource('paybill', 'Apis\PayBillApiController');
 });

@@ -37,8 +37,7 @@ class CreateMerchantTable extends Migration
             
             $table->unique('bank_account_number');  
             $table->index('bank_account_number');
-
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->index('user_id');
 
         });
     }

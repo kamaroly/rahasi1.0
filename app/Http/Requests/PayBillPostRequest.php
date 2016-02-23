@@ -27,7 +27,7 @@ class PayBillPostRequest extends Request
 
        return [
                   'transactionid'    =>'required|alpha_dash',
-                  'merchant_code'    =>'required|alpha_dash',
+                  'merchant_code'    =>'required|alpha_dash|exists:merchants',
                   'description'      =>'required',
                   'reference_number' =>'required|alpha_dash',
                   'amount'           =>'required|numeric',

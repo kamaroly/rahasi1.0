@@ -2,21 +2,24 @@
 
 namespace Rahasi\Http\Controllers;
 
-use Rahasi\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
-use Rahasi\Repositories\PayBillRepository;
+use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
+use Rahasi\Models\User;
+use Rahasi\Repositories\PayBillRepository;
 
-class PayBillController extends Controllers
+class PayBillController extends Controller
 {
    
 
-	function __construct(PayBillRepository $payBill) 
+	function __construct(PayBillRepository $payBill,User $currentUser) 
     {
-        $this->payBill  = $payBill;
         parent::__construct();
+        $this->payBill  = $payBill;
+        $this->currentUser = $currentUser->find($this->user->id);
+        
 	}
 
 	/**
@@ -25,7 +28,7 @@ class PayBillController extends Controllers
 	 */
     public function index()
     {
-        //
+        $bills = $this->currentUser->bills;
     }
 
     /**

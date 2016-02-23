@@ -1,49 +1,49 @@
 <?php 
-namespace Rahasi\Services;
+    namespace Rahasi\Services;
 
-use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
-/**
-* Biller services
-*/
-class BillerService
-{
-	/**
-	 * raw_response
-	 * @var string
-	 */
-	public $raw_response=null;
-	/**
-	 * response_code
-	 * @var string
-	 */
-	public $response_code=null;
+    use Exception;
+    use GuzzleHttp\Client;
+    use GuzzleHttp\Exception\RequestException;
+    use GuzzleHttp\Exception\ClientException;
+    /**
+    * Biller services
+    */
+    class BillerService
+    {
+    /**
+     * raw_response
+     * @var string
+     */
+    public $raw_response=null;
+    /**
+     * response_code
+     * @var string
+     */
+    public $response_code=null;
 
-	/**
-	 * response_status
-	 * @var string
-	 */
-	public $response_status=null;
+    /**
+     * response_status
+     * @var string
+     */
+    public $response_status=null;
 
-	/**
-	 * response_description
-	 * @var string
-	 */
-	public $response_description=null;
+    /**
+     * response_description
+     * @var string
+     */
+    public $response_description=null;
 
-	/**
-	 * External transaction id
-	 * @var string
-	 */
-	public $transactionId;
+    /**
+     * External transaction id
+     * @var string
+     */
+    public $transactionId;
 
-	/**
-	 * Merchant hose
-	 * @var string
-	 */
-	public $merchant_host;
+    /**
+     * Merchant hose
+     * @var string
+     */
+    public $merchant_host;
 
     /**
      * Holds webservice client
@@ -55,55 +55,70 @@ class BillerService
     {
         $this->client = $client;
     }
-	/**
-	 * Procees bill payment
-	 * @param  array  $data 
-	 * @return self
-	 */
-	public function bill(array $data)
-	{
+    /**
+     * Procees bill payment
+     * @param  array  $data 
+     * @return self
+     */
+    public function bill(array $data)
+    {
 
-		$this->setTransactionId($data['transactionid']);
-		$this->setMerchantHost($data['merchant_host']);
+    	$this->setTransactionId($data['transactionid']);
+    	$this->setMerchantHost($data['merchant_host']);
+        $error_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
+    	$this->merchant_host = 'https://api.github.com/user';
+    	try
+    	{
 
-		$this->merchant_host = 'https://api.github.com/user';
-		try
-		{
+            $response = $this->client->request('GET',$this->merchant_host ,
+                                              ['connect_timeout' =>config('rahasi.connect_timeout')]);
 
-            $response = $this->client->request('GET',$this->merchant_host , ['auth' => ['kamaroly@gmail.com', 'Hard2get1n!']]);
-
-			$this->raw_response = $response->getBody();
-			$this->response_code = $response->getStatusCode();
-			$this->response_status =  $e->getResponse()->getReasonPhrase();
-			$this->response_description = $response->getBody();
-			
-			return $this;
-		}
+    		$this->raw_response = $response->getBody();
+    		$this->response_code = $response->getStatusCode();
+    		$this->response_status =  $e->getResponse()->getReasonPhrase();
+    		$this->response_description = $response->getBody();
+    		
+    		return $this;
+    	}
          catch (RequestException $e) {
-             if ($e->hasResponse()){
-                $this->raw_response = $e->getResponse()->getBody();
-                $this->response_code = $e->getResponse()->getStatusCode();
-                $this->response_status =  $e->getResponse()->getReasonPhrase();
-                $this->response_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
-            }
-            return $this;
+        switch ($e->hasResponse()) {
+            case true:
+                $res = $e->getResponse(); 
+                $this->setProperties($res->getStatusCode(),$res->getReasonPhrase(),$error_description,$res->getBody());       
+                break;
+            
+            default:
+                $res = $e->getHandlerContext();
+                $this->setProperties($res['http_code'],'error', $res['error'],$res['error']);   
+                break;
+        }
+          
+         return $this;
         }
         catch (ClientException $e) {
-                $this->raw_response = $e->getResponse()->getBody();
-                $this->response_code = $e->getResponse()->getStatusCode();
-                $this->response_status =  $e->getResponse()->getReasonPhrase();
-                $this->response_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
-                return $this;
+            $res = $e->getResponse();
+            $this->setProperties($res->getStatusCode(),$res->getReasonPhrase(),$error_description,$res->getBody());
+            return $this;
         }
-		catch (Exception $e){
+    	catch (Exception $e){
+            
+            $this->setProperties(500,'error',$error_description,$e->getMessage());
+    		return $this;
+    	}
+    }
 
-			$this->raw_response = $e->getMessage();
-			$this->response_code = 500;
-			$this->response_status = 'error';
-			$this->response_description =trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
-			return $this;
-		}
-	}
+
+    /**
+     * 
+     */
+    private function setProperties($code,$status,$description,$raw_response)
+    {
+        $this->setResponseCode($code);
+        $this->setResponseStatus($status);
+        $this->setRawResponse($raw_response);
+        $this->setResponseDescription($description);
+    }
+
 
     /**
      * Gets the raw_response.
@@ -248,4 +263,4 @@ class BillerService
 
         return $this;
     }
-}
+    }
