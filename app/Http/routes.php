@@ -43,5 +43,5 @@ Route::group(['middleware' => ['web']], function ()
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function () {
-	   Route::resource('paybill', 'PayBillController');
+	   Route::resource('paybill', 'Apis\PayBillController');
 });
