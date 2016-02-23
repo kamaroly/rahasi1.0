@@ -125,7 +125,9 @@ Edit Profile
             {{ ($errors->has('newPassword_confirmation') ? '<br />' . $errors->first('newPassword_confirmation') : '') }}
 
         </form>
-
     </div>
 </div>
+
+@include('merchant.form')
+
 @stop
