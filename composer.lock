@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c829e72f843ac1f73083e9f5d4d65be2",
-    "content-hash": "d1012ae8559c601dd0367d6ebfecdcac",
+    "hash": "28850d56a280eac6044b5d80ade756dd",
+    "content-hash": "7eb7d46035274e6863859d3873e70afd",
     "packages": [
         {
             "name": "cartalyst/sentry",
@@ -109,43 +109,25 @@
         },
         {
             "name": "chrisbjr/api-guard",
-            "version": "dev-master",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chrisbjr/api-guard.git",
-                "reference": "fe0ba4032db8d9e62c2105ae3b0dc8f2623660a8"
+                "reference": "b8969efd2c435dc04b727d2881ece1fef9f02089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chrisbjr/api-guard/zipball/fe0ba4032db8d9e62c2105ae3b0dc8f2623660a8",
-                "reference": "fe0ba4032db8d9e62c2105ae3b0dc8f2623660a8",
+                "url": "https://api.github.com/repos/chrisbjr/api-guard/zipball/b8969efd2c435dc04b727d2881ece1fef9f02089",
+                "reference": "b8969efd2c435dc04b727d2881ece1fef9f02089",
                 "shasum": ""
             },
             "require": {
                 "ellipsesynergie/api-response": "*",
-                "illuminate/auth": "5.1.* || 5.2.*",
-                "illuminate/contracts": "5.1.* || 5.2.*",
                 "illuminate/database": "*",
-                "illuminate/http": "5.1.* || 5.2.*",
-                "illuminate/support": "5.1.* || 5.2.*",
-                "nesbot/carbon": "^1.0",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "cartalyst/sentinel": "2.0.*",
-                "illuminate/console": "5.1.* || 5.2.*",
-                "illuminate/database": "5.1.* || 5.2.*",
-                "illuminate/routing": "5.1.* || 5.2.*",
-                "mockery/mockery": "0.9.*",
-                "october/rain": "dev-stable",
-                "phpunit/phpunit": "^4.0 || ^5.0"
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Chrisbjr\\ApiGuard\\": "src"
@@ -168,7 +150,7 @@
                 "laravel",
                 "rest"
             ],
-            "time": "2016-02-21 11:42:49"
+            "time": "2016-02-13 19:56:58"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -3744,9 +3726,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "chrisbjr/api-guard": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
