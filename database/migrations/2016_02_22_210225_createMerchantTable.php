@@ -31,11 +31,14 @@ class CreateMerchantTable extends Migration
             $table->string('live_url');
             $table->string('live_key');
             $table->text('raw_request')->nullable();
+            $table->string('user_id');
 
             $table->timestamps();
-
+            
             $table->unique('bank_account_number');  
             $table->index('bank_account_number');
+
+            $table->foreign('user_id')->references('id')->on('users');
 
         });
     }
