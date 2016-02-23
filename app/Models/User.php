@@ -11,9 +11,9 @@ class User extends Model
     /**
      * Get the merchants for the blog post.
      */
-    public function merchants()
+    public function merchant()
     {
-        return $this->hasMany('Rahasi\Models\Merchant','user_id','id');
+        return $this->hasOne('Rahasi\Models\Merchant','user_id','id');
     }
 
     /**

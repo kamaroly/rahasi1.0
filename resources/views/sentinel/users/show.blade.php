@@ -53,10 +53,4 @@ Home
 	</div>
 	
 	<hr />
-
-	<h4>User Object</h4>
-	<div>
-		<p>{{ var_dump($user) }}</p>
-	</div>
-
 @stop

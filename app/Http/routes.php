@@ -33,19 +33,25 @@ Route::get('/',['as'=>'home', function () {
 
 Route::group(['middleware' => ['web']], function () 
 {
- 	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function()
+	Route::group(['prefix'=>'merchants','middleware'=>'sentry.auth'],function()
  	{
-		Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
-		Route::get('keys/{environment}/{userid}',
-						  ['as'=>'settings.keys.generate',
-						   'uses'=>'SettingContoller@generateKey'
-					]);
+		Route::post('/{user_hash}',['as'=>'merchants.store','uses'=>'MerchantController@store']);
+		Route::put('/{user_hash}',['as'=>'merchants.edit','uses'=>'MerchantController@edit']);
 	});
-
+	// bills routes
 	Route::group(['prefix'=>'bills','middleware'=>'sentry.auth'],function()
  	{
-		Route::get('/',['as'=>'bills.index','uses'=>'PayBillController@index']);
+	Route::get('/',['as'=>'bills.index','uses'=>'PayBillController@index']);
 	});
+
+	// settings routes
+ 	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function()
+ 	{
+	Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
+	Route::get('keys/{environment}/{userid}',['as'=>'settings.keys.generate','uses'=>'SettingContoller@generateKey']);
+	});
+
+
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function () {

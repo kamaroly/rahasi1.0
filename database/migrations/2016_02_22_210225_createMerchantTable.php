@@ -31,7 +31,7 @@ class CreateMerchantTable extends Migration
             $table->string('live_url');
             $table->string('live_key');
             $table->text('raw_request')->nullable();
-            $table->string('user_id');
+            $table->integer('user_id');
 
             $table->timestamps();
             

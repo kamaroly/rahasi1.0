@@ -23,9 +23,4 @@ View Group
 	</div> 
 </div>
 <hr />
-<h4>Group Object</h4>
-<div>
-    {{ var_dump($group) }}
-</div>
-
 @stop
