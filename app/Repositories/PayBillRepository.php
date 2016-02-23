@@ -36,6 +36,7 @@ class PayBillRepository implements PayBillRepositoryInterface
 
 		// Call external services
 		$billing = $this->billerService->bill($data);
+
 		$response = [];
 		$data['raw_response'] = $billing->raw_response;
 		$data['response_code'] = $response['code'] = $billing->response_code;

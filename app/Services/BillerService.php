@@ -2,6 +2,9 @@
 namespace Rahasi\Services;
 
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 /**
 * Biller services
 */
@@ -11,24 +14,24 @@ class BillerService
 	 * raw_response
 	 * @var string
 	 */
-	public $raw_response;
+	public $raw_response=null;
 	/**
 	 * response_code
 	 * @var string
 	 */
-	public $response_code;
+	public $response_code=null;
 
 	/**
 	 * response_status
 	 * @var string
 	 */
-	public $response_status;
+	public $response_status=null;
 
 	/**
 	 * response_description
 	 * @var string
 	 */
-	public $response_description;
+	public $response_description=null;
 
 	/**
 	 * External transaction id
@@ -42,6 +45,16 @@ class BillerService
 	 */
 	public $merchant_host;
 
+    /**
+     * Holds webservice client
+     * @var GuzzleHttp\Client
+     */
+    protected $client;
+
+    function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
 	/**
 	 * Procees bill payment
 	 * @param  array  $data 
@@ -53,24 +66,41 @@ class BillerService
 		$this->setTransactionId($data['transactionid']);
 		$this->setMerchantHost($data['merchant_host']);
 
-		$this->merchant_host = '127.0.0.1';
+		$this->merchant_host = 'https://api.github.com/user';
 		try
 		{
 
-			$this->raw_response = 'Test raw response string';
-			$this->response_code = 200;
-			$this->response_status = 'success';
-			$this->response_description ='TV Payment went well, tx 12312391237121';
+            $response = $this->client->request('GET',$this->merchant_host , ['auth' => ['kamaroly@gmail.com', 'Hard2get1n!']]);
+
+			$this->raw_response = $response->getBody();
+			$this->response_code = $response->getStatusCode();
+			$this->response_status =  $e->getResponse()->getReasonPhrase();
+			$this->response_description = $response->getBody();
 			
 			return $this;
 		}
-		catch (Exception $ex){
+         catch (RequestException $e) {
+             if ($e->hasResponse()){
+                $this->raw_response = $e->getResponse()->getBody();
+                $this->response_code = $e->getResponse()->getStatusCode();
+                $this->response_status =  $e->getResponse()->getReasonPhrase();
+                $this->response_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
+            }
+            return $this;
+        }
+        catch (ClientException $e) {
+                $this->raw_response = $e->getResponse()->getBody();
+                $this->response_code = $e->getResponse()->getStatusCode();
+                $this->response_status =  $e->getResponse()->getReasonPhrase();
+                $this->response_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
+                return $this;
+        }
+		catch (Exception $e){
 
-			$this->raw_response = $ex->getMessage();
+			$this->raw_response = $e->getMessage();
 			$this->response_code = 500;
 			$this->response_status = 'error';
-			$this->response_description = $ex->getMessage();
-
+			$this->response_description =trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
 			return $this;
 		}
 	}
