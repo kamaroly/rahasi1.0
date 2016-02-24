@@ -24,4 +24,6 @@ return [
     */
 
     'service_fees' => 5,
+
+    'per_page'      => 20,
 ];

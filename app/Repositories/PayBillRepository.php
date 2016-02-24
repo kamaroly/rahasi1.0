@@ -28,6 +28,7 @@ class PayBillRepository implements PayBillRepositoryInterface
 		$this->merchantRepo		= $merchantRepo;
 	}
 
+
 	/**
 	 * Perform transaction for the bill payment
 	 * @param  array  $data 
@@ -85,6 +86,18 @@ class PayBillRepository implements PayBillRepositoryInterface
 				break;
 		}
 	}
+
+	/**
+	 * Get transaction per merchant code
+	 * @param  $merchant_code 
+	 * @return Illuminate\Support\Collection
+	 */
+	public function getPaymentsByMerchantCode($merchant_code)
+	{
+		return $this->billPayment->where('merchant_code',$merchant_code)->paginate(config('rahasi.per_page'));
+	}
+
+
 	/**
 	 * Get merchant key
 	 * @param   $merchant_code 
