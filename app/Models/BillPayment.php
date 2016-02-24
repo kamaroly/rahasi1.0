@@ -15,6 +15,7 @@ class BillPayment extends Model
 		'merchant_code',
 		'description',
 		'reference_number',
+		'amount',
 		'response_code',
 		'response_description',
 		'merchant_host',
