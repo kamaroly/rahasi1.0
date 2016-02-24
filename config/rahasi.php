@@ -13,4 +13,15 @@ return [
     */
 
     'connect_timeout' =>1,
+    /*
+    |--------------------------------------------------------------------------
+    | Merchant default service fee
+    |--------------------------------------------------------------------------
+    |
+    | Integer describing the percantage of transacted fees to be charged 
+    | when a merchant is paid using rahasi platform services.
+    |
+    */
+
+    'service_fees' => 5,
 ];

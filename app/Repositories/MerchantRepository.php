@@ -43,8 +43,12 @@ class MerchantRepository
 		if (is_null($data['merchant_code']) || empty($data['merchant_code'])) {
 			$data['merchant_code'] = time();
 		}
-		$merchant = $this->merchant->create($data);
 
+		if (is_null($data['service_fees']) || empty($data['service_fees'])) {
+			$data['service_fees'] = config('rahasi.service_fees');
+		}
+
+		$merchant = $this->merchant->create($data);
 		if ($merchant) {
             // Fire the 'merchant registered' event
             $this->dispatcher->fire('rahasi.merchant.registered', $merchant);

@@ -27,7 +27,7 @@ class CreateMerchantRequest extends Request
         return [
                 'names'                       => 'required|min:5',
                 'address'                     => 'required|min:5',
-                'service_fees'                => 'required|numeric',
+                'service_fees'                => 'numeric',
                 'bank_account_number'         => 'required',
                 'bank_account_name'           => 'required',
                 'bank_name'                   => 'required',
