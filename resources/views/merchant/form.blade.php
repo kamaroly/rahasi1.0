@@ -1,8 +1,8 @@
 <?php $merchant = Rahasi\Models\User::find($user->id)->merchant; ?>
 <?php $route = route('merchants.store',['hash'=>$user->hash]);?>
 <!-- if merchant is null create a new merchant object -->
-@if ($merchant->exists)
-  <?php $route = route('merchants.edit',['hash'=>$merchant->hash]);?>
+@if (!is_null($merchant->exists))
+   <?php $route = route('merchants.edit',['hash'=>$merchant->hash]);?>
 @else
   <?php $merchant = new Rahasi\Models\Merchant; ?>
 @endif
