@@ -66,7 +66,7 @@
     	$this->setTransactionId($data['transactionid']);
     	$this->setMerchantHost($data['merchant_host']);
         $error_description = trans('api.we_exprienced_problem_while_communicating_to_merchant_please_try_again_later');
-    	$this->merchant_host = 'https://api.github.com/user';
+
     	try
     	{
 
@@ -80,7 +80,7 @@
     		
     		return $this;
     	}
-         catch (RequestException $e) {
+        catch (RequestException $e) {
         switch ($e->hasResponse()) {
             case true:
                 $res = $e->getResponse(); 

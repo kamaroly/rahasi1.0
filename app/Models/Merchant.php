@@ -9,6 +9,26 @@ class Merchant extends Model
 {
     protected  $table = "merchants";
 
+    protected $fillable =[
+    	'names',
+		'address',
+		'service_fees',
+		'bank_account_number',
+		'bank_account_name',
+		'bank_name',
+		'merchant_code',
+		'contact_person_names',
+		'contact_person_phone_number',
+		'contact_person_email',
+		'settlement_frequency',
+		'test_url',
+		'test_key',
+		'live_url',
+		'live_key',
+		'user_id',
+		'raw_request',
+    ];
+    
    /**
 	 * Get the user that owns the phone.
 	 */

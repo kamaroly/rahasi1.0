@@ -3,6 +3,9 @@
 namespace Rahasi\Repositories;
 
 use Rahasi\Contracts\PayBillRepositoryInterface;
+use Rahasi\Exceptions\MerchantApiKeyEnvironmentException;
+use Rahasi\Exceptions\MerchantApiKeyException;
+use Rahasi\Exceptions\PayBillTransactionRecordFailedException;
 use Rahasi\Models\BillPayment;
 use Rahasi\Services\BillerService;
 
@@ -11,28 +14,38 @@ use Rahasi\Services\BillerService;
 */
 class PayBillRepository implements PayBillRepositoryInterface
 {
+	protected $keyDatails;
 	protected $apiKeyRepo;
 	protected $billPayment;
 	protected $billerService;
-	function __construct(ApiKeyRepository $apiKeyRepo,BillPayment $billPayment,BillerService $billerService)
+	protected $merchantDetails;
+
+	function __construct(ApiKeyRepository $apiKeyRepo,BillPayment $billPayment,BillerService $billerService,MerchantRepository $merchantRepo)
 	{
-		$this->apiKeyRepo = $apiKeyRepo;
-		$this->billPayment = $billPayment;
-		$this->billerService = $billerService;
+		$this->apiKeyRepo		= $apiKeyRepo;
+		$this->billPayment		= $billPayment;
+		$this->billerService	= $billerService;
+		$this->merchantRepo		= $merchantRepo;
 	}
 
+	/**
+	 * Perform transaction for the bill payment
+	 * @param  array  $data 
+	 * @return array
+	 */
 	public function transact(array $data)
 	{
 		// Prepare data
-		$data['api_key_id'] = $this->apiKeyRepo->getByKey($data['key'])->id;
+		$this->keyDatails = $this->apiKeyRepo->getByKey($data['key']);
+		$this->merchantDetails = $this->merchantRepo->getByMerchantCode($data['merchant_code']);
+
+		$data['api_key_id'] = $this->keyDatails->id;
 		$data['external_transactionid'] = $data['transactionid'];
 		$data['transactionid'] = $this->generateKey();
 
 		// Determine which merchant host to  use
-		/** 
-		 * @todo proper resolution of the merchant host 
-		 */
-		$data['merchant_host'] = '127.0.0.1';
+		$data['merchant_host'] = $this->getMerchantUrl();
+		$data['merchant_key']  = $this->getMerchantKey();
 
 		// Call external services
 		$billing = $this->billerService->bill($data);
@@ -45,17 +58,51 @@ class PayBillRepository implements PayBillRepositoryInterface
 		$data['response_description'] = $response['description'] = $billing->response_description;
 		$response['transactionid']    = $billing->transactionId;
 
-
-		// Unset un necessary information 
-		unset($data['key']);
 		// save information to the database;
-		$this->billPayment->unguard();
-		$this->billPayment->create($data);
+		if (!$this->billPayment->create($data)) {
+			throw new PayBillTransactionRecordFailedException("Error while saving PayBillInformation".json_encode($data), 1);
+		};
 
 		return $response;
 
 	}
 
+	/**
+	 * Get merchant url
+	 * @param   $merchant_code 
+	 * @return  string url
+	 */
+	private function getMerchantUrl()
+	{
+		switch (strtolower(trim($this->keyDatails->environment))) {
+			case 'test':
+				return $this->merchantDetails->test_url;	
+				break;
+			case 'live':
+				return $this->merchantDetails->live_url;	
+			default:
+				throw new MerchantApiKeyEnvironmentException("Unable to determine api key environment", 1);
+				break;
+		}
+	}
+	/**
+	 * Get merchant key
+	 * @param   $merchant_code 
+	 * @return  string url
+	 */
+	private function getMerchantKey()
+	{
+		switch (strtolower(trim($this->keyDatails->environment))) {
+			case 'test':
+				return $this->merchantDetails->test_key;	
+				break;
+			case 'live':
+				return $this->merchantDetails->live_key;	
+			default:
+				throw new MerchantApiKeyException("Unable to determine api key environment", 1);
+				break;
+		}
+	}
 
 	 /**
      * A sure method to generate a unique transactionID
@@ -84,9 +131,7 @@ class PayBillRepository implements PayBillRepositoryInterface
     {
         $apiKeyCount = $this->billPayment->where('transactionid', '=', $transactionid)
         					->limit(1)->count();
-
         if ($apiKeyCount > 0) return true;
-
         return false;
     }
 }

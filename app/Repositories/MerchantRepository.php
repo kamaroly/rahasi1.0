@@ -20,6 +20,16 @@ class MerchantRepository
 		$this->dispatcher = $dispatcher;
 	}
 
+	/**
+	 * Get merchant by code
+	 * @param  string $merchant_code
+	 * @return Rahasi\Models\Merchant
+	 */
+	public function getByMerchantCode($merchant_code)
+	{
+		$merchant = $this->merchant->where('merchant_code',trim($merchant_code))->firstOrFail();
+		return $merchant;
+	}
 
 	/**
 	 * Stores new merchant in the database
@@ -28,10 +38,7 @@ class MerchantRepository
 	 */
 	public function store($data)
 	{
-		// Remove unwanted information 
-		unset($data['_token']);
-		
-		$this->merchant->unguard();
+
 		$data['merchant_code'] = trim($data['merchant_code']);
 		if (is_null($data['merchant_code']) || empty($data['merchant_code'])) {
 			$data['merchant_code'] = time();
@@ -54,13 +61,10 @@ class MerchantRepository
 	 */
 	public function update($data)
 	{
-		// Remove unwanted information 
-		unset($data['_token']);
-		unset($data['_method']);
-		unset($data['user_hash']);
+		$merchant = $this->merchant->find($data['id']);	
 
-		$this->merchant->unguard();
-		$merchant = $this->merchant->find($data['id']);
+		// Remove unwanted information
+		unset($data['id']);
 		
 		$results = $merchant->update($data);
 
@@ -71,7 +75,6 @@ class MerchantRepository
 		}
 
 		$this->dispatcher->fire('rahasi.merchant.update.failed', $data);
-
 		return $results;
 	}
 
