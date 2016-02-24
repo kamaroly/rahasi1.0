@@ -54,10 +54,18 @@
 					<li {!! (Request::is('users*') ? 'class="active"' : '') !!}><a href="{{ action('\\Sentinel\Controllers\UserController@index') }}">Users</a></li>
 					<li {!! (Request::is('groups*') ? 'class="active"' : '') !!}><a href="{{ action('\\Sentinel\Controllers\GroupController@index') }}">Groups</a></li>
 				@endif
+
+				@if (Sentry::check())
+	            <li {!! (Request::is('bills*') ? 'class="active"' : '') !!}>
+	            <a href="{{ route('bills.index') }}">
+	             {{ trans('navigation.bills') }}
+	            </a>
+				</li>
+				@endif
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
-	            @if (Sentry::check())
-	            <li {!! (Request::is('settings') ? 'class="active"' : '') !!}>
+	           	@if (Sentry::check())
+	            <li {!! (Request::is('setting*') ? 'class="active"' : '') !!}>
 	            <a href="{{ route('settings.keys') }}">
 	             {{ trans('navigation.settings') }}
 	            </a>

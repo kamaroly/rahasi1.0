@@ -25,11 +25,6 @@ Route::get('/',['as'=>'home', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
- Route::get('/test',function(){
- 	$user = Rahasi\Models\User::find(1);
- 	$merchant = Rahasi\Models\Merchant::first();
- 	return $merchant->bills;
- });
 
 Route::group(['middleware' => ['web']], function () 
 {
@@ -41,7 +36,8 @@ Route::group(['middleware' => ['web']], function ()
 	// bills routes
 	Route::group(['prefix'=>'bills','middleware'=>'sentry.auth'],function()
  	{
-	Route::get('/',['as'=>'bills.index','uses'=>'PayBillController@index']);
+	 Route::get('/',['as'=>'bills.index','uses'=>'PayBillController@index']);
+	 Route::get('/{hash}/show',['as'=>'bills.show','uses'=>'PayBillController@show']);
 	});
 
 	// settings routes
