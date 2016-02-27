@@ -1,0 +1,1 @@
+<p class="copyright pull-right"><strong>Rahasi</strong> 1.0</p>

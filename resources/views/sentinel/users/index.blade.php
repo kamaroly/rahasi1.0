@@ -15,7 +15,6 @@
                     <a class='btn btn-primary' href="{{ route('sentinel.users.create') }}">Create User</a>
                 </div>
             </div>
-            <h1>Current Users</h1>
         </div>
     </div>
 

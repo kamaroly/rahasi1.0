@@ -9,15 +9,17 @@ use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
 use Rahasi\Models\User;
 use Rahasi\Repositories\PayBillRepository;
+use Vinkla\Hashids\HashidsManager;
 
 class PayBillController extends Controller
 {
    
 
-	function __construct(PayBillRepository $payBill,User $currentUser) 
+	function __construct(PayBillRepository $payBill,User $currentUser,HashidsManager $hashids) 
     {
         parent::__construct();
         $this->payBill  = $payBill;
+        $this->hashids  = $hashids;
         $this->currentUser = $currentUser->find($this->user->id);
         
 	}
@@ -38,9 +40,22 @@ class PayBillController extends Controller
      * @param  integer $id 
      * @return json  
      */
-    public function show($id)
+    public function show($hash)
     {
-          //
+        try
+        {
+            $billId = $this->hashids->decode($hash)[0];
+            $bill = $this->payBill->get($billId);
+
+            return view('paybills.show',compact('bill'));
+        }
+        catch(Exception $ex){
+            Event::fire('exception.thrown', $ex);
+
+            Log::critical($ex->getMessage());
+
+            return redirect()->back();
+        }
     }
 
    

@@ -3,6 +3,7 @@
 namespace Rahasi\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Vinkla\Hashids\Facades\Hashids;
 
 class BillPayment extends Model
 {
@@ -24,4 +25,14 @@ class BillPayment extends Model
 		'raw_response',
 		'api_key_id',
     ];
+
+    /**
+     * Use a mutator to derive the appropriate hash for this bill
+     *
+     * @return mixed
+     */
+    public function getHashAttribute()
+    {
+        return Hashids::encode($this->attributes['id']);
+    }
 }

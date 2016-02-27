@@ -69,6 +69,16 @@ class PayBillRepository implements PayBillRepositoryInterface
 	}
 
 	/**
+	 * Get Bill by ID
+	 * @param  numeric $billId 
+	 * @return    
+	 */
+	public function get($billId)
+	{
+		return $this->billPayment->find($billId);
+	}
+	
+	/**
 	 * Get merchant url
 	 * @param   $merchant_code 
 	 * @return  string url

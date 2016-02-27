@@ -11,7 +11,7 @@ return [
     | to a server.Use 0 to wait indefinitely (the default behavior).
     |
     */
-
+    
     'connect_timeout' =>1,
     /*
     |--------------------------------------------------------------------------
@@ -22,8 +22,9 @@ return [
     | when a merchant is paid using rahasi platform services.
     |
     */
-
-    'service_fees' => 5,
-
-    'per_page'      => 20,
+    
+    'appname'         => 'Rahasi',
+    'service_fees'    => 5,
+    
+    'per_page'        => 20,
 ];

@@ -15,7 +15,7 @@ Groups
                 <a class='btn btn-primary' href="{{ route('sentinel.groups.create') }}">Create Group</a>
             </div>
         </div>
-        <h1>Available Groups</h1>
+        
     </div>
 </div>
 

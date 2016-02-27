@@ -9,8 +9,7 @@
 {{-- Content --}}
 @section('content')
 <div class="row">
-    <div class="col-md-11">
-            <h2>{{ trans('paybill.bills_transactions') }}</h2>
+    <div class="col-md-12">
             {!! $bills->render() !!}
              <table class="table table-bordered">
                  <thead>
@@ -18,6 +17,7 @@
                          <th>#</th>
                          <th>{{ trans('paybill.reference_number') }}</th>
                          <th>{{ trans('paybill.bill_description') }}</th>
+                         <th>{{ trans('paybill.client') }}</th>
                          <th>{{ trans('paybill.amount') }}</th>
                          <th>{{ trans('paybill.status') }}</th>
                          <th>{{ trans('paybill.response_description') }}</th>

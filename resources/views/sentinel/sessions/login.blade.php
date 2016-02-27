@@ -1,10 +1,5 @@
 @extends(config('sentinel.layout'))
 
-{{-- Web site Title --}}
-@section('title')
-Log In
-@stop
-
 {{-- Content --}}
 @section('content')
 <div class="row">

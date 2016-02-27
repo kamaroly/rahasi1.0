@@ -28,6 +28,10 @@ Route::get('/',['as'=>'home', function () {
 
 Route::group(['middleware' => ['web']], function () 
 {
+	
+	// Dashboard route
+	Route::get('/dashboard',['as'=>'dashboard','middleware'=>'sentry.auth','uses'=>'DashboardController@index']);
+	// Merchants routes
 	Route::group(['prefix'=>'merchants','middleware'=>'sentry.auth'],function()
  	{
 		Route::post('/{user_hash}',['as'=>'merchants.store','uses'=>'MerchantController@store']);
@@ -43,8 +47,9 @@ Route::group(['middleware' => ['web']], function ()
 	// settings routes
  	Route::group(['prefix'=>'settings','middleware'=>'sentry.auth'],function()
  	{
-	Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
-	Route::get('keys/{environment}/{userid}',['as'=>'settings.keys.generate','uses'=>'SettingContoller@generateKey']);
+ 		Route::get('/', ['as'=>'settings.index','uses'=>'SettingContoller@index']);
+		Route::get('keys/',['as'=>'settings.keys','uses'=>'SettingContoller@keys']);
+		Route::get('keys/{environment}/{userid}',['as'=>'settings.keys.generate','uses'=>'SettingContoller@generateKey']);
 	});
 
 

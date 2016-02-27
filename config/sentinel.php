@@ -197,7 +197,7 @@ return [
     |
     */
 
-    'layout' => 'Sentinel::layouts.default',
+    'layout' => 'layouts.default', //Sentinel::layouts.default
 
     /*
     |--------------------------------------------------------------------------
