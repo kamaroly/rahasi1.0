@@ -6,7 +6,7 @@
         <div class="nav-title">{{ trans('navigation.dashboard') }}</div>
       </a>
     </li>
-    <li {!! (Request::is('groups*') ? 'class="bills"' : '') !!}>
+    <li {!! (Request::is('groups*') ? 'class="active"' : '') !!}>
       <a href="{{ route('bills.index') }}">
         <div class="nav-icon"><span class="icon-book"></i></span></div>
         <div class="nav-title">{{ trans('navigation.bills') }}</div>
