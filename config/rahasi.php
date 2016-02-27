@@ -12,7 +12,7 @@ return [
     |
     */
     
-    'connect_timeout' =>1,
+    'connect_timeout' =>5,
     /*
     |--------------------------------------------------------------------------
     | Merchant default service fee
