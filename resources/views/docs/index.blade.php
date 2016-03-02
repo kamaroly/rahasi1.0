@@ -1,5 +1,4 @@
 @extends('layouts.docs')
-
 @section('content')
 <div class="docs-wrapper docs container">
 	<section class="sidebar">
@@ -13,6 +12,6 @@
   @include('docs.errors')
   @include('docs.request_ids')
 
-	</article>
+</article>
 </div>
 @endsection

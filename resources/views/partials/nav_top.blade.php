@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-12 top-nav">
-<a href="http://ceb.app" class="logo">
+<a href="/" class="logo">
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>RAHA</b>SI</span>
         </a>

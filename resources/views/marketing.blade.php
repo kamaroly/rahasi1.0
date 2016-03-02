@@ -84,7 +84,7 @@
 			<div class="block even">
 				<div class="text">
 					<h2>Tailored for your team.</h2>
-					<p>Whether you're a solo developer or a 20 person team, Rahasi is a breath of fresh air. Keep everyone in sync using Rahasi's dashboard agnostic <a href="/docs/dashboard">Dashboard</a> and <a href="/docs/migrations">schema builder</a>.</p>
+					<p>Whether you're a solo developer or a 20 person team, Rahasi is a breath of fresh air. Keep everyone in sync using Rahasi's dashboard agnostic <a href="/docs/dashboard">Dashboard</a>.</p>
 				</div>
 				<div class="media">
 					<div class="terminal-window">
@@ -120,16 +120,14 @@
 							</div>
 						</div>
 						<div class='window-content'>
-							<pre class="line-numbers"><code class="language-php">
-Route::resource('photos', 'PhotoController');
-
-/**
- * Retrieve A User...
- */
-Route::get('/user/{user}', function(App\User $user)
+							<pre class="line-numbers"><code class="language-javascript">
 {
-	return $user;
-})
+"response_code":0,
+"response_status":"error",
+"response_description":"Failed to connect to jsonplaceholder.typicode.com port 80: Connection timed out",
+"transactionId":"14569430545308d2ef27b42816d20a3addd7d48d",
+"merchant_host":"http:\/\/jsonplaceholder.typicode.com\/posts"
+}
 </code></pre>
 					</div>
 				</div>
