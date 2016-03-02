@@ -40,19 +40,33 @@ class PayBillRepository implements PayBillRepositoryInterface
 		$this->keyDatails					= $data['key'];
 		$this->merchantDetails				= $this->merchantRepo->getByMerchantCode($data['merchant_code']);
 		
+
 		$data['api_key_id']					= $this->keyDatails->id;
 		$data['external_transactionid']		= $data['transactionid'];
 		$data['transactionid']				= $this->generateKey();
 		
+		// Prepare information to send to merchant
+		$merchantRequest = [];
+		$merchantRequest['transactionid']		= $data['transactionid'];
+		$merchantRequest['description']			= $data['description'];
+		$merchantRequest['reference_number']	= $data['reference_number'];
+		$merchantRequest['customer']			= $data['msisdn'];
+		$merchantRequest['amount']				= $data['amount'];
+		$merchantRequest['amount']				= $data['amount'];
+		$merchantRequest['payment_method']		= $this->keyDatails->user->company_name;
+
 		// Determine which merchant host to  use
-		$data['merchant_host']				= $this->getMerchantUrl();
-		$data['merchant_key']				= $this->getMerchantKey();
-		$data['company_name']				= $this->keyDatails->user->company_name;
-		$data['raw_request_to_merchant']	= json_encode($data);			
+		$merchantRequest['merchant_host'] = $data['merchant_host']				= $this->getMerchantUrl();
+		$merchantRequest['merchant_key'] = $data['merchant_key']				= $this->getMerchantKey();
 		
 		// Call external services
-		$billing							= $this->billerService->bill($data);
+		$billing							= $this->billerService->bill($merchantRequest);
 		
+		// Remove sensitive information
+		unset($merchantRequest['merchant_host']);
+		unset($merchantRequest['merchant_key']);
+
+		$data['raw_request_to_merchant']	= json_encode($merchantRequest);
 		$data['raw_response_from_merchant']	= json_encode((array) $billing);
 		
 		$response							= [];
