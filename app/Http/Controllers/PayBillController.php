@@ -30,7 +30,7 @@ class PayBillController extends Controller
 	 */
     public function index()
     {
-        $bills = $this->currentUser->bills()->paginate(config('rahasi.per_page'));
+        $bills = $this->currentUser->bills()->orderBy('created_at','desc')->paginate(config('rahasi.per_page'));
 
         return view('paybills.list',compact('bills'));
     }

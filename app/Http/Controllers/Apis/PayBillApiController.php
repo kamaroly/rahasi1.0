@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
+use Rahasi\Repositories\ApiKeyRepository;
 use Rahasi\Repositories\PayBillRepository;
 use Rahasi\Transformers\PayBillTransform;
 
@@ -37,11 +38,11 @@ class PayBillApiController extends ApiGuardController
     protected $key;
     protected $payBill;
 
-	function __construct(Response $response,PayBillRepository $payBill) 
+	function __construct(Response $response,PayBillRepository $payBill,ApiKeyRepository $key) 
     {
         $this->response = $response;
         $this->payBill  = $payBill;
-        $this->key = request()->header(Config::get('apiguard.keyName', 'X-Authorization'));
+        $this->key = $key->getByKey(request()->header(Config::get('apiguard.keyName', 'X-Authorization')));
         parent::__construct();
 	}
 
@@ -95,12 +96,27 @@ class PayBillApiController extends ApiGuardController
         if (!isJson($inputs)) {
             $response['error']['code'] = 'GEN-WRONG-ARGS';
             $response['error']['http_code'] = 400;
-            $response['error']['message'] = trans('general.invalid_json_input');
+            $response['error']['message'] = trans('validation.invalid_json_input');
             $this->response->setStatusCode(400);
             return $this->response->withArray($response);
         }
 
         $inputs = (array) json_decode($inputs);
+
+        // Verify if this external transaction id is not duplicated
+        $previousTransaction = $this->payBill->getByExternalTransactionId($inputs['transactionid'],$this->key->id);
+        if (!is_null($previousTransaction)) {
+            // The user is submitted transaction ID that exists already at our end
+            // We need to respond with the validation error and ask him/her 
+            // to provide a unique transaction id
+            
+            $response['error']['code'] = 'GEN-WRONG-ARGS';
+            $response['error']['http_code'] = 400;
+            $response['error']['message'] = trans('validation.transactionid_has_been_used_by_you_before',['transactionid'=>$inputs['transactionid']]);
+            $this->response->setStatusCode(400);
+            return $this->response->withArray($response);
+        }
+
 
         $validations = Validator::make($inputs,(new PayBillPostRequest)->rules());
         
@@ -110,9 +126,9 @@ class PayBillApiController extends ApiGuardController
 
         // Everything in terms of validation looks good so far
         // now let's proceed with the payment of the bill
-        $inputs['ip_address']  =  $request->getClientIp();
-        $inputs['raw_request'] =  $request->getContent();
-        $inputs['key']         =  $this->key;
+        $inputs['ip_address']                  =  $request->getClientIp();
+        $inputs['raw_request_from_payment_gw'] =  $request->getContent();
+        $inputs['key']                         =  $this->key;
 
         $payBill = (array) $this->payBill->transact($inputs);
 

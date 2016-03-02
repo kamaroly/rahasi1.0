@@ -107,4 +107,8 @@ return [
 
     'attributes' => [],
 
+
+    'invalid_json_input'                        => 'Invalid json passed in the request',
+    'transactionid_has_been_used_by_you_before' => 'Transaction id(:transactionid) has been used by you before, please correct this and try again',
+
 ];

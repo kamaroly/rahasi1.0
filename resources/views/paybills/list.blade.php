@@ -20,7 +20,6 @@
                          <th>{{ trans('paybill.client') }}</th>
                          <th>{{ trans('paybill.amount') }}</th>
                          <th>{{ trans('paybill.status') }}</th>
-                         <th>{{ trans('paybill.response_description') }}</th>
                          <th>{{ trans('paybill.date_time') }}</th>
                          <th></th>
                      </tr>

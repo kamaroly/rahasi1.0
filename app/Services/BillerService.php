@@ -75,9 +75,9 @@
 
     		$this->raw_response = $response->getBody();
     		$this->response_code = $response->getStatusCode();
-    		$this->response_status =  $e->getResponse()->getReasonPhrase();
-    		$this->response_description = $response->getBody();
-    		
+    		$this->response_status =  $response->getReasonPhrase();
+            $this->response_description = $response->getBody();
+            
     		return $this;
     	}
         catch (RequestException $e) {

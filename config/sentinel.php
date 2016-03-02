@@ -75,8 +75,9 @@ return [
     */
 
     'additional_user_fields' => [
-        'first_name' => 'alpha_spaces',
-        'last_name'  => 'alpha_spaces'
+        'first_name'   => 'alpha_spaces',
+        'last_name'    => 'alpha_spaces',
+        'company_name' => 'alpha_spaces',
     ],
 
     /*

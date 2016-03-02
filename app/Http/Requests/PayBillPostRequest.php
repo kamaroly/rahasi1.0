@@ -29,6 +29,7 @@ class PayBillPostRequest extends Request
                   'transactionid'    =>'required|alpha_dash',
                   'merchant_code'    =>'required|alpha_dash|exists:merchants',
                   'description'      =>'required',
+                  'msisdn'           =>'required|alpha_dash',
                   'reference_number' =>'required|alpha_dash',
                   'amount'           =>'required|numeric',
               ];

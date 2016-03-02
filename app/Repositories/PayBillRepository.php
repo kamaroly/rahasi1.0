@@ -37,27 +37,33 @@ class PayBillRepository implements PayBillRepositoryInterface
 	public function transact(array $data)
 	{
 		// Prepare data
-		$this->keyDatails = $this->apiKeyRepo->getByKey($data['key']);
-		$this->merchantDetails = $this->merchantRepo->getByMerchantCode($data['merchant_code']);
-
-		$data['api_key_id'] = $this->keyDatails->id;
-		$data['external_transactionid'] = $data['transactionid'];
-		$data['transactionid'] = $this->generateKey();
-
+		$this->keyDatails					= $data['key'];
+		$this->merchantDetails				= $this->merchantRepo->getByMerchantCode($data['merchant_code']);
+		
+		$data['api_key_id']					= $this->keyDatails->id;
+		$data['external_transactionid']		= $data['transactionid'];
+		$data['transactionid']				= $this->generateKey();
+		
 		// Determine which merchant host to  use
-		$data['merchant_host'] = $this->getMerchantUrl();
-		$data['merchant_key']  = $this->getMerchantKey();
-
+		$data['merchant_host']				= $this->getMerchantUrl();
+		$data['merchant_key']				= $this->getMerchantKey();
+		$data['company_name']				= $this->keyDatails->user->company_name;
+		$data['raw_request_to_merchant']	= json_encode($data);			
+		
 		// Call external services
-		$billing = $this->billerService->bill($data);
-
-		$response = [];
-		$data['raw_response'] = $billing->raw_response;
-		$data['response_code'] = $response['code'] = $billing->response_code;
-
-		$response['status']    = $billing->response_status;
-		$data['response_description'] = $response['description'] = $billing->response_description;
-		$response['transactionid']    = $billing->transactionId;
+		$billing							= $this->billerService->bill($data);
+		
+		$data['raw_response_from_merchant']	= json_encode((array) $billing);
+		
+		$response							= [];
+		$data['raw_response']				= $billing->raw_response;
+		$data['response_code']				= $response['code'] = $billing->response_code;
+		
+		$response['status']					= $data['status']=  $billing->response_status;
+		$data['response_description']		= $response['description'] = $billing->response_description;
+		$response['transactionid']			= $billing->transactionId;
+		
+		$data['raw_response_to_payment_gw']	= json_encode($response);
 
 		// save information to the database;
 		if (!$this->billPayment->create($data)) {
@@ -105,6 +111,20 @@ class PayBillRepository implements PayBillRepositoryInterface
 	public function getPaymentsByMerchantCode($merchant_code)
 	{
 		return $this->billPayment->where('merchant_code',$merchant_code)->paginate(config('rahasi.per_page'));
+	}
+
+
+	/**
+	 * Get transaction per external transaction id and api
+	 * @param  string $external_transactionid
+	 * @param  string $api_key_id
+	 * @return Rahasi\Models\BillPayment
+	 */
+	public function getByExternalTransactionId($external_transactionid,$api_key_id)
+	{
+		return $this->billPayment->where('external_transactionid',$external_transactionid)
+								 ->where('api_key_id',$api_key_id)
+								 ->first();
 	}
 
 

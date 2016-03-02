@@ -5,6 +5,7 @@ use Rahasi\Contracts\ApiKeyRepositoryContract;
 use Rahasi\DataTransfers\ApiKeysDataTranser;
 use Rahasi\Exceptions\ApiKeyNotGeneratedException;
 use Rahasi\Exceptions\InvalidEnvironmentException;
+use Rahasi\Models\User;
 
 /**
 * API KEY REPOSITORY
@@ -12,10 +13,12 @@ use Rahasi\Exceptions\InvalidEnvironmentException;
 class ApiKeyRepository implements ApiKeyRepositoryContract
 {
 	protected $apiKey;
+	protected $user;
 
-	function __construct(ApiKey $apiKey)
+	function __construct(ApiKey $apiKey,User $user)
 	{
 		$this->apiKey = $apiKey;
+		$this->user = $user;
 	}
 
 	/**
@@ -99,6 +102,9 @@ class ApiKeyRepository implements ApiKeyRepositoryContract
             return null;
         }
 
+        // Attach user to this key
+        $apiKey->user = $this->user->findOrFail($apiKey->id);
+        
         return $apiKey;
     }
 
