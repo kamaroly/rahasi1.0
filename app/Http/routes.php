@@ -12,8 +12,12 @@
 */
 
 Route::get('/',['as'=>'home', function () {
-    return view('welcome');
+    return view('marketing');
 }]);
+Route::get('/docs',['as'=>'docs', function () {
+    return view('docs.index');
+}]);
+
 
 /*
 |--------------------------------------------------------------------------

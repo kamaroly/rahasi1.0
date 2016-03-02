@@ -1,45 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>Rahasi</title>
+<head>
+    <meta charset="utf-8">
+    <title>{{ isset($title) ? $title . ' - ' : null }}Laravel - The PHP Framework For Web Artisans</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Taylor Otwell">
+    <meta name="description" content="Laravel - The PHP framework for web artisans.">
+    <meta name="keywords" content="laravel, php, framework, web, artisans, taylor otwell">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lte IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{{ url('assets/css/docs.css') }}">
+    <link rel="apple-touch-icon" href="/favicon.png">
+</head>
+<body class="@yield('body-class', 'docs') language-php">
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <span class="overlay"></span>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
+    <nav class="main">
         <div class="container">
-            <div class="content">
-                <div class="title">Rahasi1.0</div>
+            <a href="/" class="brand">
+                RAHASI
+            </a>
+
+            <div class="responsive-sidebar-nav">
+                <a href="#" class="toggle-slide menu-link btn">&#9776;</a>
             </div>
+
+            @if (Request::is('docs*') && isset($currentVersion))
+                @include('partials.switcher')
+            @endif
+
+            <ul class="main-nav">
+                @include('partials.main-nav')
+            </ul>
         </div>
-    </body>
+    </nav>
+
+    @yield('content')
+
+
+    <script src="{{ url('assets/js/laravel.js') }}"></script>
+   
+</body>
 </html>
