@@ -47,7 +47,7 @@
 
 <section class="panel features dark" id="features">
 	<h1>Did someone say rapid?</h1>
-	<p>Elegant applications delivered at warp speed.</p>
+	<p>Elegant integration delivered at warp speed.</p>
 		<div class="blocks stacked">
 			<div class="block odd">
 				<div class="text">
