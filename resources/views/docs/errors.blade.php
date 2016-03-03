@@ -40,7 +40,7 @@ and codes in the 5xx range indicate an error with Tigo's servers (these are rare
                 <td class="bs-PropertyList-definition table-row-definition">Too many requests hit the API too quickly.</td>
               </tr>
                 <tr><th class="bs-PropertyList-property table-row-property">500, 502, 503, 504 - Server Errors</th>
-                <td class="bs-PropertyList-definition table-row-definition">Something went wrong on Tigo's end. (These are rare.)</td>
+                <td class="bs-PropertyList-definition table-row-definition">Something went wrong on Rahasi's end. (These are rare.)</td>
               </tr>
             </tbody>
           </table>
