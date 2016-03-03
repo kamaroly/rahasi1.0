@@ -4,7 +4,7 @@
 Nano credit uses conventional HTTP response codes to indicate the success or failure of an API request.
 In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given 
 the information provided (e.g., a required parameter was omitted, a charge failed, etc.), 
-and codes in the 5xx range indicate an error with Tigo's servers (these are rare).
+and codes in the 5xx range indicate an error with Rahasi's servers (these are rare).
 </p>
 <p>
    Not all errors map cleanly onto HTTP response codes, however.
@@ -40,7 +40,7 @@ and codes in the 5xx range indicate an error with Tigo's servers (these are rare
                 <td class="bs-PropertyList-definition table-row-definition">Too many requests hit the API too quickly.</td>
               </tr>
                 <tr><th class="bs-PropertyList-property table-row-property">500, 502, 503, 504 - Server Errors</th>
-                <td class="bs-PropertyList-definition table-row-definition">Something went wrong on Tigo's end. (These are rare.)</td>
+                <td class="bs-PropertyList-definition table-row-definition">Something went wrong on Rahasi's end. (These are rare.)</td>
               </tr>
             </tbody>
           </table>
