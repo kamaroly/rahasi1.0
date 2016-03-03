@@ -55,7 +55,8 @@ class PayBillApiController extends ApiGuardController
 
     	 try {
 
-        	return $this->response->withCollection($this->data, new PayBillTransform);
+            $data = $this->payBill->get()->paginate(20);
+        	return $this->response->withCollection($data, new PayBillTransform);
 
         } catch (ModelNotFoundException $e) {
 
@@ -73,7 +74,7 @@ class PayBillApiController extends ApiGuardController
     {
         try {
 
-            $paybill = $this->data;
+            $paybill = $data = $this->payBill->get($id,$this->keyDatails->id);
 
             return $this->response->withItem($paybill, new PayBillTransform);
 

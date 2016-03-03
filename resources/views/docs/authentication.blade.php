@@ -7,21 +7,30 @@ accessible areas such GitHub, client-side code, and so forth.
 Authentication to the API is performed via HTTP Basic Auth. 
 </p>
 <p>
-Provide your API key in the header of your request with the name <code class="language-bash">private_api_key</code>. 
+Provide your API key in the header of your request with the name <code class="language-console">X-Authorization</code>. 
 You do not need to provide a password.All API requests must be made over HTTPS. 
 Calls made over plain HTTP will fail. API requests without authentication will also fail.
 </p>
 <p>
     <h3>SAMPLE AUTHENTICATION ERROR</h3>
-    <pre class=" language-json">
+<pre class="line-numbers">
+<code class="language-javascript">
 {
   "code": "401",
   "status": "ERROR",
   "description": "The provided Api Key is not valid."
 }
-    </pre>
+</code>
+</pre>
 </p>
 <h3>Example</h3>
-<pre class=" language-bash">
-      "private_api_key:test_sk_903dce8df892e020b3943dcf03dd6"
+<div class='window-content'>
+<div class="dark-code">
+<pre>
+<code class="language-javascript">
+  "X-Authorization:test_sk_903dce8df892e020b3943dcf03dd6"
+ </code>
 </pre>
+</div>
+</div>
+

@@ -14,6 +14,6 @@ class frontPageTest extends TestCase
     public function testExample()
     {
     	$this->visit('/')
-    	     ->see('Rahasi1.0');
+    	     ->see('Rahasi');
     }
 }

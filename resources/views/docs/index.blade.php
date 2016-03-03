@@ -12,6 +12,9 @@
   @include('docs.errors')
   @include('docs.request_ids')
 
+  <!-- Methods -->
+  @include('docs.methods.paybill')
+
 </article>
 </div>
 @endsection

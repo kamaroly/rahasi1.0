@@ -11,10 +11,9 @@
           <li><a href="/docs#transaction-ids">Transaction IDs</a></li>
        </ul>
     </li>
-    <li>PAY BILL
+    <li>FINANCIAL INSTITUTIONS
        <ul>     
-          <li><a href="/docs#postbill">Pay bill</a></li>
-          <li><a href="/docs#getbill">Get bill</a></li>
+          <li><a href="/docs#pay-bill">Pay a bill</a></li>
        </ul>
     </li>
 
