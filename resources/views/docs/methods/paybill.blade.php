@@ -29,7 +29,7 @@
               </tr>
               <tr>
                 <th class="bs-PropertyList-property table-row-property">msisdn</th>
-                <td class="bs-PropertyList-definition table-row-definition">The customer phone number to be credited.(e.g : 250721100818)</td>
+                <td class="bs-PropertyList-definition table-row-definition">The customer identifier for example, this shall be his phone number in most of the cases.(e.g : 250721100818)</td>
               </tr>
               <tr>
                 <th class="bs-PropertyList-property table-row-property">amount</th>
