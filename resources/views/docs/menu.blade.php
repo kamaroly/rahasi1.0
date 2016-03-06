@@ -11,9 +11,18 @@
           <li><a href="/docs#transaction-ids">Transaction IDs</a></li>
        </ul>
     </li>
-    <li>FINANCIAL INSTITUTIONS
+    <li>MNOs
        <ul>     
-          <li><a href="/docs#pay-bill">Pay a bill</a></li>
+       <li><strong><u>Bills</u></strong></li>
+        <li><a href="/docs#bill-payment">Payment</a></li>
+        <li><a href="/docs#get-bill-payment">Get payment details</a></li>
+          
+       </ul>
+    </li>
+     <li>MERCHANTS
+       <ul>     
+        <li><a href="/docs#merchant-bill-payment">Pay bill</a></li>
+        <!-- <li><a href="/docs#get-bill-payment">Get payment details</a></li>       -->
        </ul>
     </li>
 

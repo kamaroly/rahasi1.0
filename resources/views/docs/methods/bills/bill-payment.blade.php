@@ -1,5 +1,5 @@
-﻿<p><a name="pay-bill"></a></p>
-<h1>Pay a bill</h1>
+﻿<p><a name="bill-payment"></a></p>
+<h1>Bill payment</h1>
 <p>
  To pay bill to a merchant on behalf of the customer, You will need to call this method. 
  If the API you are calling is in test mode, the supplied payment details won't actually affect wallets, though everything else will occur as if in live mode. 

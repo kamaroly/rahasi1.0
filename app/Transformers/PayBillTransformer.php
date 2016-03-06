@@ -15,7 +15,7 @@ use League\Fractal\TransformerAbstract;
              'status'=>$bill->status,
              'transactionid'=>$bill->external_transactionid,
              'description'=>$bill->response_description,
-             'rahasi_reference'=>$bill->transactionid,
+             'payment_reference'=>$bill->transactionid,
              ];
 	}
 

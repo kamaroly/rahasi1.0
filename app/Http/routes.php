@@ -38,6 +38,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function ()
 	    // PAY BILL ROUTES
 	    Route::group(['prefix'=>'/bills'], function(){
 		   Route::post('pay',['as'=>'api.v1.bills.pay','uses'=>'Apis\PayBillApiController@store']);
-		   Route::get('get/{reference_number}',['as'=>'api.v1.bills.get','uses'=>'Apis\PayBillApiController@show']);
+		   Route::get('get/{transactionid}',['as'=>'api.v1.bills.get','uses'=>'Apis\PayBillApiController@show']);
 	    });
 });

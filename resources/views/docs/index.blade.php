@@ -13,7 +13,11 @@
   @include('docs.request_ids')
 
   <!-- Methods -->
-  @include('docs.methods.paybill')
+  @include('docs.methods.bills.bill-payment')
+  @include('docs.methods.bills.get-payment-details')
+
+
+  @include('docs.methods.bills.merchant-bill-payment')
 
 </article>
 </div>
