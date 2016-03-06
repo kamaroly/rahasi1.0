@@ -6,7 +6,7 @@
  Rahasi will assume that the pay bill would have been done and it shall give you the proper response.
 </p>
 <p>
-<b>URL : </b>  {{ route('api.v1.paybill.store') }} Paybill <br />
+<b>URL : </b>  {{ route('api.v1.bills.pay') }}  <br />
 <b>HTTP Method :</b> POST <br />
 
 <h3>ARGUMENTS</h3>

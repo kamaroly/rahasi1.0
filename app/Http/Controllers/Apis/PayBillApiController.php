@@ -4,14 +4,17 @@ namespace Rahasi\Http\Controllers\Apis;
 
 use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
+use Exception;
+use Rahasi\Exceptions\BillPaymentTransactionNotFoundException;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
 use Rahasi\Repositories\ApiKeyRepository;
 use Rahasi\Repositories\PayBillRepository;
-use Rahasi\Transformers\PayBillTransform;
+use Rahasi\Transformers\PayBillTransformer;
 
 
 class PayBillApiController extends ApiGuardController
@@ -40,10 +43,10 @@ class PayBillApiController extends ApiGuardController
 
 	function __construct(Response $response,PayBillRepository $payBill,ApiKeyRepository $key) 
     {
+        parent::__construct();
         $this->response = $response;
         $this->payBill  = $payBill;
         $this->key = $key->getByKey(request()->header(Config::get('apiguard.keyName', 'X-Authorization')));
-        parent::__construct();
 	}
 
 	/**
@@ -56,7 +59,7 @@ class PayBillApiController extends ApiGuardController
     	 try {
 
             $data = $this->payBill->get()->paginate(20);
-        	return $this->response->withCollection($data, new PayBillTransform);
+        	return $this->response->withCollection($data, new PayBillTransformer);
 
         } catch (ModelNotFoundException $e) {
 
@@ -70,18 +73,23 @@ class PayBillApiController extends ApiGuardController
      * @param  integer $id 
      * @return json  
      */
-    public function show($id)
+    public function show($transactionid)
     {
         try {
 
-            $paybill = $data = $this->payBill->get($id,$this->keyDatails->id);
+            $paybill = $data = $this->payBill->userBillByTransactionId($transactionid,$this->key->user_id);
 
-            return $this->response->withItem($paybill, new PayBillTransform);
+            return $this->response->withItem($paybill, new PayBillTransformer);
 
-        } catch (ModelNotFoundException $e) {
-
+        } 
+        catch (BillPaymentTransactionNotFoundException $e) {
             return $this->response->errorNotFound();
-
+        }
+        catch (ModelNotFoundException $e) {
+            return $this->response->errorNotFound();
+        }
+        catch(Exception $e){
+            return $this->response->errorInternalError();
         }
     }
 

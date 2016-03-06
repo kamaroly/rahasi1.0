@@ -5,17 +5,17 @@ use League\Fractal\TransformerAbstract;
 /**
  * Bill payment transformer
  */
- class PayBillTransform extends TransformerAbstract
+ class PayBillTransformer extends TransformerAbstract
  {
  	
  	public function transform($bill)
 	{
 	  return  [
-             'msisdn'=>'250726044221',
-             'company_id'=>'ELECT',
-             'reference'=>'04223731771',
-             'amount'=>100,
-             'api_key_id'=>'8aaf19d386b3277451fbfd2c8f3b3422d6346d69',
+             'code'=>$bill->response_code,
+             'status'=>$bill->status,
+             'transactionid'=>$bill->external_transactionid,
+             'description'=>$bill->response_description,
+             'rahasi_reference'=>$bill->transactionid,
              ];
 	}
 

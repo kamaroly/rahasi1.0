@@ -3,10 +3,12 @@
 namespace Rahasi\Repositories;
 
 use Rahasi\Contracts\PayBillRepositoryInterface;
+use Rahasi\Exceptions\BillPaymentTransactionNotFoundException;
 use Rahasi\Exceptions\MerchantApiKeyEnvironmentException;
 use Rahasi\Exceptions\MerchantApiKeyException;
 use Rahasi\Exceptions\PayBillTransactionRecordFailedException;
 use Rahasi\Models\BillPayment;
+use Rahasi\Models\user;
 use Rahasi\Services\BillerService;
 
 /**
@@ -20,8 +22,9 @@ class PayBillRepository implements PayBillRepositoryInterface
 	protected $billerService;
 	protected $merchantDetails;
 
-	function __construct(ApiKeyRepository $apiKeyRepo,BillPayment $billPayment,BillerService $billerService,MerchantRepository $merchantRepo)
+	function __construct(ApiKeyRepository $apiKeyRepo,BillPayment $billPayment,BillerService $billerService,MerchantRepository $merchantRepo,User $user)
 	{
+		$this->user = $user;
 		$this->apiKeyRepo		= $apiKeyRepo;
 		$this->billPayment		= $billPayment;
 		$this->billerService	= $billerService;
@@ -98,6 +101,29 @@ class PayBillRepository implements PayBillRepositoryInterface
 		return $this->billPayment->find($billId);
 	}
 	
+	/**
+	 * Get user bill 
+	 * @param  array  $condition contains condition for the bill
+	 * @return Rahasi\Models\PayBIll
+	 */
+	public function userBillByTransactionId($external_transactionid,$user_id)
+	{
+		$user = $this->user->with('bills')->find($user_id);
+
+		if (is_null($user)) {
+			return [];
+		}
+
+		// If we can find the user, let's find the transaction id
+		$transaction = $user->bills()->where('external_transactionid',$external_transactionid)->first();
+
+		if (empty($transaction)) {
+			throw new BillPaymentTransactionNotFoundException("Bill payment transaction with external transaction id:".$external_transactionid." not found", 1);
+			
+		}
+		return $transaction;
+	}
+
 	/**
 	 * Get merchant url
 	 * @param   $merchant_code 
