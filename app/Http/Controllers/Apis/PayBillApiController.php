@@ -141,7 +141,6 @@ class PayBillApiController extends ApiGuardController
 
         $payBill = (array) $this->payBill->transact($inputs);
 
-        return $payBill;
-
+        return $this->show($inputs['transactionid']);
     }
 }
