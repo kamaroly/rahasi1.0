@@ -15,7 +15,7 @@
        <ul>     
        <li><strong><u>Bills</u></strong></li>
         <li><a href="/docs#bill-payment">Payment</a></li>
-        <li><a href="/docs#get-bill-payment">Get payment details</a></li>
+        <li><a href="/docs#get-payment-details">Get payment details</a></li>
           
        </ul>
     </li>
