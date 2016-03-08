@@ -2,22 +2,22 @@
 
 namespace Rahasi\Http\Controllers\Apis;
 
-use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
-use Exception;
 use Rahasi\Exceptions\BillPaymentTransactionNotFoundException;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
+use Rahasi\Models\User;
 use Rahasi\Repositories\ApiKeyRepository;
 use Rahasi\Repositories\PayBillRepository;
 use Rahasi\Transformers\PayBillTransformer;
 
 
-class PayBillApiController extends ApiGuardController
+class PayBillApiController extends RahasiApiGuardController
 {
     protected $apiMethods = [
         'show' => [
@@ -38,15 +38,14 @@ class PayBillApiController extends ApiGuardController
         ],
     ];
 
-    protected $key;
     protected $payBill;
 
 	function __construct(Response $response,PayBillRepository $payBill,ApiKeyRepository $key) 
     {
-        parent::__construct();
+        parent::__construct($key);  
         $this->response = $response;
         $this->payBill  = $payBill;
-        $this->key = $key->getByKey(request()->header(Config::get('apiguard.keyName', 'X-Authorization')));
+        
 	}
 
 	/**
@@ -100,6 +99,7 @@ class PayBillApiController extends ApiGuardController
      */
     public function store(Request $request)
     {
+
         $inputs = $request->getContent();
 
         if (!isJson($inputs)) {

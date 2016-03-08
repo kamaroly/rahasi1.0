@@ -41,3 +41,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => 'throttle:120'], function ()
 		   Route::get('get/{transactionid}',['as'=>'api.v1.bills.get','uses'=>'Apis\PayBillApiController@show']);
 	    });
 });
+
+Route::get('/test',function(){
+	dd(getModels());
+});

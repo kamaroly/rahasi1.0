@@ -78,6 +78,7 @@ return [
         'first_name'   => 'alpha_spaces',
         'last_name'    => 'alpha_spaces',
         'company_name' => 'alpha_spaces',
+        'environment' => 'alpha_spaces',
     ],
 
     /*

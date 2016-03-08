@@ -2,12 +2,14 @@
 
 namespace Rahasi\Listeners;
 
-use Rahasi\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\DB;
 use Rahasi\Repositories\ApiKeyRepository;
+use Rahasi\Models\User;
+use Rahasi\Models\ApiKey;
 
-class UserRegisteredListener
+class UserUpdatedListener
 {
     /**
      * Create the event listener.
@@ -33,9 +35,7 @@ class UserRegisteredListener
         // Also generate for the test environment
         DB::setDefaultConnection('test');
         // Register for testing
-        User::unguard();
-        User::create($user->toArray());
-        // Generating the key
+        User::where('id', $user->id) ->update($user->toArray());
         ApiKey::where('user_id', $user->id) ->update($testKey->toArray());
     }
 

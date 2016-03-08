@@ -1,5 +1,23 @@
 <?php 
 
+/**
+ * Get all existings modesl
+ * @return array 
+ */
+ function getModels()
+{
+    return array_filter(scandir(app_path('Models/')), function(&$val)
+    {
+
+        if($val != '.' && $val != '..')
+        {   
+            $val = trim(str_replace('.php', '', $val));
+            return $val;
+        }
+    });
+}
+
+
 
 /**
  * Method to check if a string is a json

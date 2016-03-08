@@ -8,6 +8,7 @@ use Rahasi\Exceptions\ApiKeyNotGeneratedException;
 use Rahasi\Exceptions\InvalidEnvironmentException;
 use Rahasi\Http\Controllers\Controller;
 use Rahasi\Http\Requests;
+use Rahasi\Models\ApiKey;
 use Rahasi\Repositories\ApiKeyRepository;
 use Vinkla\Hashids\HashidsManager;
 
@@ -59,6 +60,16 @@ class SettingContoller extends Controller
 			$userid = $this->hashids->decode($hash)[0];			
 			$key = $this->apikey->generateKey($userid,$environment);
 
+			if ($key->environment == 'test') {
+				$result = ApiKey::where('user_id', $userid) ->update($key->toArray());
+
+				// This is a new key
+				if (empty($result)) {
+					ApiKey::unguard();
+					ApiKey::create($key->toArray());
+				}
+			}
+	
 			return $this->keys();
 		}
 		catch (InvalidEnvironmentException $ex){
