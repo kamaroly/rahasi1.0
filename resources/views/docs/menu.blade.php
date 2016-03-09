@@ -22,7 +22,7 @@
      <li>MERCHANTS
        <ul>     
         <li><a href="/docs#merchant-bill-payment">Pay bill</a></li>
-        <li><a href="/docs#get-bill-details">Get bill details</a></li>
+        <li><a href="/docs#merchant-get-bill-details">Get bill details</a></li>
        </ul>
     </li>
 
