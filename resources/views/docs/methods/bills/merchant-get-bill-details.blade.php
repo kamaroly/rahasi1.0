@@ -1,7 +1,7 @@
 <p><a name="merchant-get-bill-details"></a></p>
 <h1>Get bills Details</h1>
 <p>
- Due to different unavoidable causes, Rahasi may send a payment request and not get the response, in this case we put this transaction in doubt mode
+ Due to different unavoidable reasons, Rahasi may send a payment request and not get the response, in this case we put this transaction in doubt mode
  since we really don't know what happened to this transaction and we cannot confirm whether it was successfully or failed. Therefore
  Rahasi will attempt multiple time to call merchant APIs(Let call it get transaction details) by passing the transactionid issued in the request then 
  Rahasi will expect Merchant platform to respond with what happened to the transaction. 
@@ -11,12 +11,12 @@
     <table class="bs-PropertyList bs-ContentSection-content--custom table-container">
      <tbody>
       <tr>
-        <th class="bs-PropertyList-property table-row-property" style="color:#00FF00">SUCCESS</th>
+        <th class="bs-PropertyList-property table-row-property" style="color:#00FF00">OK</th>
         <td class="bs-PropertyList-definition table-row-definition">This confirms that the transaction has been successfully processed</td>
       </tr>
       <tr>
         <th class="bs-PropertyList-property table-row-property" style="color:#FF0000" >FAILED</th>
-        <td class="bs-PropertyList-definition table-row-definition">Transaction has been submited but it has failed at merchant level due to different reasons./</td>
+        <td class="bs-PropertyList-definition table-row-definition">Transaction has been submited but it has failed at merchant level due to different reasons.</td>
       </tr>
       <tr>
         <th class="bs-PropertyList-property table-row-property" style="color:#f4645f">NOT-FOUND</th>
@@ -44,24 +44,26 @@
 </p>
 <p>
 <h3>SAMPLE REQUEST</h3>
-<p>You will need to submit below sample request after replacing its values by yours, then submit it as a json string.</p>
-<pre class="line-numbers">
+<p>Rahasi will need to submit below similar sample request, then it will expect merchant to respond with below response format.</p>
+<pre class="line-numbers  dark">
 <code class="language-bash">
-  curl http://rahasi.app/api/v1/bills/get/1341412312312
+  curl http://rahasi.app/api/v1/bills/get/1456919152396a16eb0e032af5749d104527f76b 
+  -u test_merchant_api_key
 </code>
 </pre>
-<h3>SAMPLE SUCCESSFULL RESPONSE</h3>
+<h3>EXPECTED SUCCESSFULL RESPONSE</h3>
 <pre class="line-numbers">
 <code class="language-javascript">
 {
-  "data": {
-    "code": "200",
-    "status": "OK",
-    "transactionid": "1341412312312",
-    "description": "CASHPOWER V#3288 2423 0162 14771401REF#2201/37428187 M# 045366557845 kWh13.90.",
-    "payment_reference": "14569182700d34b026f67921d7cdca9bd7e6649d"
+  "code": "200",
+  "status": "OK",
+  "account_balance" : 5000,
+  "customer":"250722332214",
+  "reference_number":"99882727737-23",
+  "description": "CASHPOWER V#3288 2423 0162 14771401REF#2201/37428187 M# 045366557845 kWh13.90.",
+  "payment_reference": "14569182700d34b026f67921d7cdca9bd7e6649d",
+  "transactionid":"1456919152396a16eb0e032af5749d104527f76b"
   }
-}
 </code>
 </pre>
 
@@ -70,8 +72,8 @@
 <code class="language-javascript">
 {
   "error": {
-    "code": "GEN-NOT-FOUND",
-    "http_code": 404,
+    "code": "404",
+    "status": "NOT-FOUND",
     "message": "Resource Not Found"
   }
 } 
