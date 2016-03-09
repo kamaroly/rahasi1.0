@@ -11,7 +11,7 @@
     <table class="bs-PropertyList bs-ContentSection-content--custom table-container">
      <tbody>
       <tr>
-        <th class="bs-PropertyList-property table-row-property" style="color:#00FF00">OK</th>
+        <th class="bs-PropertyList-property table-row-property" style="color:#2E7D32">OK</th>
         <td class="bs-PropertyList-definition table-row-definition">This confirms that the transaction has been successfully processed</td>
       </tr>
       <tr>
