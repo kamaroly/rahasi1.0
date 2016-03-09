@@ -1,5 +1,5 @@
 ﻿<p><a name="merchant-bill-payment"></a></p>
-<h1>Merchant bill payment.</h1>
+<h2>Merchant bill payment.</h2>
 <p>
  If you are a merchant and you would like to receive payment through Rahasi, you will need to have an api interface that Rahasi platform can understand. whenever Rahasi receives a payment request, it shall fire a webhook to your API with below defined information in the parameters, then your application has to treat the request and give rahasi response with the format defined in the <strong>expected sample request</strong> section.
 </p>
