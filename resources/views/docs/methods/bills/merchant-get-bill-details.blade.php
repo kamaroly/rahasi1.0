@@ -49,7 +49,7 @@
 <div class="dark-code">
 <pre>
 <code class="language-javascript">
-  curl http://rahasi.app/api/v1/bills/get/1456919152396a16eb0e032af5749d104527f76b 
+  curl https://merchantapiurl.tld/getbilldetails/1456919152396a16eb0e032af5749d104527f76b 
   -u test_merchant_api_key
  </code>
 </pre>
