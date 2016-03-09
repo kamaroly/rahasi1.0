@@ -45,12 +45,16 @@
 <p>
 <h3>SAMPLE REQUEST</h3>
 <p>Rahasi will need to submit below similar sample request, then it will expect merchant to respond with below response format.</p>
-<pre class="line-numbers  dark">
+<div class='window-content'>
+<div class="dark-code">
+<pre>
 <code class="language-bash">
   curl http://rahasi.app/api/v1/bills/get/1456919152396a16eb0e032af5749d104527f76b 
   -u test_merchant_api_key
-</code>
+ </code>
 </pre>
+</div>
+</div>
 <h3>EXPECTED SUCCESSFULL RESPONSE</h3>
 <pre class="line-numbers">
 <code class="language-javascript">
