@@ -5,6 +5,26 @@
  since we really don't know what happened to this transaction and we cannot confirm whether it was successfully or failed. Therefore
  Rahasi will attempt multiple time to call merchant APIs(Let call it get transaction details) by passing the transactionid issued in the request then 
  Rahasi will expect Merchant platform to respond with what happened to the transaction. 
+ 
+ <h3>EXPECTED RESPONSES STATUS</h3>
+<section class="bs-ContentSection--compact table">
+    <table class="bs-PropertyList bs-ContentSection-content--custom table-container">
+     <tbody>
+      <tr>
+        <th class="bs-PropertyList-property table-row-property" style="color:#00FF00">SUCCESS</th>
+        <td class="bs-PropertyList-definition table-row-definition">This confirms that the transaction has been successfully processed</td>
+      </tr>
+      <tr>
+        <th class="bs-PropertyList-property table-row-property" style="color:#FF0000" >FAILED</th>
+        <td class="bs-PropertyList-definition table-row-definition">Transaction has been submited but it has failed at merchant level due to different reasons./</td>
+      </tr>
+      <tr>
+        <th class="bs-PropertyList-property table-row-property" style="color:#f4645f">NOT-FOUND</th>
+        <td class="bs-PropertyList-definition table-row-definition">Merchant cannot find the provided transactionid, this happens in most cases when transaction timedout before it reaches merchant. In this case Rahasi will attempt to initiate the request.</td>
+      </tr>
+     </tbody>
+     </table>
+    </section>
 </p>
 <p>
 <b>URL : https://merchantapiurl.tld/getbilldetails/:transactionid  <br />
@@ -17,7 +37,6 @@
              <tr>
                 <th class="bs-PropertyList-property table-row-property">transactionid</th>
                 <td class="bs-PropertyList-definition table-row-definition">Unique  transaction id, Rahasi passed in the request while initiating a bill payment request to a merchant</td>
-    
               </tr>
             </tbody>
           </table>
