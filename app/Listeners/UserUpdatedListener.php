@@ -2,6 +2,7 @@
 
 namespace Rahasi\Listeners;
 
+use DB;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
