@@ -1,22 +1,22 @@
 <p><a name="get-bill-details"></a></p>
-<h1>Get Payment Details</h1>
+<h1>Get bills Details</h1>
 <p>
- Whether you would like to check on the payment details after you have called the bill payment method, or the network has timed out before you get the response from Rahasi, you may wish to check the transaction status before you issue a new request, You will need to call this method to get the transaction details. 
- If the API you are calling is in test mode, Rahasi will give you information done in the test environment, though everything else will occur as if in live mode. 
- Rahasi will give you information based on the key environment you are using.
+ Due to different unavoidable causes, Rahasi may send a payment request and not get the response, in this case we put this transaction in doubt mode
+ since we really don't know what happened to this transaction and we cannot confirm whether it was successfully or failed. Therefore
+ Rahasi will attempt multiple time to call merchant APIs(Let call it get transaction details) by passing the transactionid issued in the request then 
+ Rahasi will expect Merchant platform to respond with what happened to the transaction. 
 </p>
 <p>
-<b>URL : </b>  {{ route('api.v1.bills.get',['transactionid' => ':transactionid']) }}  <br />
+<b>URL : https://merchantapiurl.tld/getbilldetails/:transactionid  <br />
 <b>HTTP Method :</b> get <br />
 
 <h3>ARGUMENTS</h3>
-
 <section class="bs-ContentSection--compact table">
           <table class="bs-PropertyList bs-ContentSection-content--custom table-container">
             <tbody>
              <tr>
                 <th class="bs-PropertyList-property table-row-property">transactionid</th>
-                <td class="bs-PropertyList-definition table-row-definition">Unique external transaction id, you passed in the request while initiating a bill payment request</td>
+                <td class="bs-PropertyList-definition table-row-definition">Unique  transaction id, Rahasi passed in the request while initiating a bill payment request to a merchant</td>
     
               </tr>
             </tbody>
