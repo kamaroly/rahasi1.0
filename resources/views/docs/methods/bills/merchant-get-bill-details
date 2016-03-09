@@ -1,4 +1,4 @@
-<p><a name="get-bill-details"></a></p>
+<p><a name="merchant-get-bill-details"></a></p>
 <h1>Get bills Details</h1>
 <p>
  Due to different unavoidable causes, Rahasi may send a payment request and not get the response, in this case we put this transaction in doubt mode
