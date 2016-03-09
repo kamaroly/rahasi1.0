@@ -16,9 +16,9 @@
   @include('docs.methods.bills.bill-payment')
   @include('docs.methods.bills.get-payment-details')
 
-
+ <!-- Merchant interfaces -->
   @include('docs.methods.bills.merchant-bill-payment')
-
+  @include('docs.methods.bills.merchant-get-bill-details')
 </article>
 </div>
 @endsection
