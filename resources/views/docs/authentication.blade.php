@@ -28,7 +28,7 @@ Calls made over plain HTTP will fail. API requests without authentication will a
 <div class="dark-code">
 <pre>
 <code class="language-javascript">
-  "X-Authorization:test_sk_903dce8df892e020b3943dcf03dd6"
+  X-Authorization:test_sk_903dce8df892e020b3943dcf03dd6
  </code>
 </pre>
 </div>
