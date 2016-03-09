@@ -1,5 +1,5 @@
 ﻿<p><a name="get-payment-details"></a></p>
-<h1>Get Payment Details</h1>
+<h2>Get Payment Details</h2>
 <p>
  Whether you would like to check on the payment details after you have called the bill payment method, or the network has timed out before you get the response from Rahasi, you may wish to check the transaction status before you issue a new request, You will need to call this method to get the transaction details. 
  If the API you are calling is in test mode, Rahasi will give you information done in the test environment, though everything else will occur as if in live mode. 
