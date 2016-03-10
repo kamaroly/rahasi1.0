@@ -1,5 +1,5 @@
 <p><a name="authentication"></a></p>
-<h1>Authentication</h1>
+<h2>Authentication</h2>
 <p>
 Authenticate your account when using the API by including your secret API key in the request. 
 Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly 
@@ -28,7 +28,7 @@ Calls made over plain HTTP will fail. API requests without authentication will a
 <div class="dark-code">
 <pre>
 <code class="language-javascript">
-  "X-Authorization:test_sk_903dce8df892e020b3943dcf03dd6"
+  X-Authorization:test_sk_903dce8df892e020b3943dcf03dd6
  </code>
 </pre>
 </div>

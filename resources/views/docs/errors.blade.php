@@ -1,5 +1,5 @@
 <p><a name="errors"></a></p>
-<h1>Errors</h1>
+<h2>Errors</h2>
 <p>
 Rahasi uses conventional HTTP response codes to indicate the success or failure of an API request.
 In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given 

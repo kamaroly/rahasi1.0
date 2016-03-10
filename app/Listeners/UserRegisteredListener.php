@@ -2,7 +2,9 @@
 
 namespace Rahasi\Listeners;
 
+use DB;
 use Rahasi\Models\User;
+use Rahasi\Models\ApiKey;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Rahasi\Repositories\ApiKeyRepository;

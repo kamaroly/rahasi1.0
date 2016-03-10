@@ -1,5 +1,5 @@
 <p><a name="transaction-ids"></a></p>
-<h1>Transaction IDs</h1>
+<h2>Transaction IDs</h2>
 <p>
 Each API request has an associated request identifier. 
 You can find this value in the response, under Transaction-id key. 
