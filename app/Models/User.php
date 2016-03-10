@@ -3,6 +3,7 @@
 namespace Rahasi\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Vinkla\Hashids\Facades\Hashids;
 
 class User extends Model
 {
@@ -22,5 +23,15 @@ class User extends Model
     public function bills()
     {
         return $this->hasManyThrough('Rahasi\Models\BillPayment', 'Rahasi\Models\ApiKey', 'user_id', 'api_key_id');
+    }
+
+    /**
+     * Use a mutator to derive the appropriate hash for this user
+     *
+     * @return mixed
+     */
+    public function getHashAttribute()
+    {
+        return Hashids::encode($this->attributes['id']);
     }
 }

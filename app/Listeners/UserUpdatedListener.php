@@ -34,11 +34,17 @@ class UserUpdatedListener
 
         // Also generate for the test environment
         DB::setDefaultConnection('test');
-        // Register for testing
-        User::where('id', $user->id) ->update($user->toArray());
-        ApiKey::where('user_id', $user->id) ->update($testKey->toArray());
+
+        $user = $user->toArray();
+        $user['permissions'] = !empty($user['permissions'])?$user['permissions']:null;
+        // update user for testing
+        User::unguard();
+        User::find($user['id']) ->update($user);
+
+        // Update key
+        ApiKey::unguard();
+        if(!ApiKey::where('user_id', $user['id']) ->update($testKey->toArray())){
+            ApiKey::create($testKey->toArray());
+        }
     }
-
-
-
 }

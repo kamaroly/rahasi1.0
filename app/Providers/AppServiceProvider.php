@@ -22,9 +22,9 @@ class AppServiceProvider extends ServiceProvider
         Event::listen('sentinel.user.registered','\Rahasi\Listeners\UserRegisteredListener@handle', 10);
         Event::listen('sentinel.user.updated','\Rahasi\Listeners\UserUpdatedListener@handle', 10);
         
+         // Extract key
+        $keyName = config('apiguard.keyName', 'X-Authorization');
         // Changing default database 
-        $keyName = Config::get('apiguard.keyName', 'X-Authorization');
-        // Extract key
         if ($apiKey = request()->header($keyName)) {
             $key = (new ApiKeyRepository(new ApiKey,new User))->getByKey($apiKey); 
             DB::setDefaultConnection('test');

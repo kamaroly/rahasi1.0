@@ -10,4 +10,8 @@ return [
 	// Actions
 	'view'		=> 'View',
 
+	// Environment
+	'test'		=> 'Test',
+	'live'		=> 'live',
+
 ];

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Rahasi\Exceptions\BillPaymentTransactionNotFoundException;
+use Rahasi\Http\Controllers\Apis\RahasiApiGuardController;
 use Rahasi\Http\Requests;
 use Rahasi\Http\Requests\PayBillPostRequest;
 use Rahasi\Models\User;
@@ -45,7 +46,6 @@ class PayBillApiController extends RahasiApiGuardController
         parent::__construct($key);  
         $this->response = $response;
         $this->payBill  = $payBill;
-        
 	}
 
 	/**

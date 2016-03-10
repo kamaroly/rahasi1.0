@@ -248,20 +248,20 @@ thead {
   text-align: center;
 }
 
-/** TABS SECTION */
+.dark_box{
+  margin-left:20px;
+  background: #000;
+  background: rgba(0,0,0,0.3);
+  color:#fff;
+}
 
-h1 {
-  font-weight: normal;
-  font-size: 40px;
-  font-weight: normal;
-  float: left;
-  margin: 20px 0 100px 10px;
+.dark_box h1{
+  margin-left:20px;
+  text-align:center;
+  color:#fff;
 }
-h1 span {
-  font-size: 13px;
-  display: block;
-  padding-left: 4px;
-}
+
+/** TABS SECTION */
 
 .tabs {
 
@@ -277,11 +277,12 @@ h1 span {
 .tabs input[type="radio"] {
   position: absolute;
 }
-.tabs label {
+.tabs > li > label {
   display: block;
   padding: 18px 21px;
-  border-radius: 2px 2px 0 0;
+  border-radius: 1px 1px 0 0;
   font-size: 14px;
+  border-right: 1px solid #f2f2f2;
   font-weight: normal;
   text-transform: uppercase;
   background: #444;
@@ -294,11 +295,11 @@ h1 span {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.tabs label:hover {
+.tabs > li > label:hover {
   background: #f2f2f2;
 }
 .tabs .tab-content {
-  z-index: 2;
+  /*z-index: 2;*/
   display: none;
   overflow: hidden;
   width: 100%;
@@ -323,20 +324,4 @@ h1 span {
 p.link {
   clear: both;
   margin: 380px 0 0 15px;
-}
-p.link a {
-  text-transform: uppercase;
-  text-decoration: none;
-  display: inline-block;
-  color: #fff;
-  padding: 5px 10px;
-  /*margin: 0 5px;*/
-  background-color: #612e76;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-p.link a:hover {
-  background-color: #522764;
 }

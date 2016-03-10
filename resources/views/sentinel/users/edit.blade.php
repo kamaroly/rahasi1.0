@@ -49,8 +49,16 @@ Edit Profile
             @foreach(config('sentinel.additional_user_fields') as $field => $rules)
             <div class="form-group {{ ($errors->has($field)) ? 'has-error' : '' }}" for="{{ $field }}">
                 <label for="{{ $field }}" class="col-sm-2 control-label">{{ ucwords(str_replace('_',' ',$field)) }}</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10">  
+                 @if ($field == 'environment')
+                    <select class="form-control" name="{!! $field !!}">
+                        <option value="test" {!! $user->$field=='test' ?'selected':null;!!}>{{ trans('general.test') }}</option>
+                        <option value="live" {!! $user->$field=='live' ?'selected':null;!!}>{{ trans('general.live') }}</option>
+                    </select>
+                 @else
                     <input class="form-control" name="{{ $field }}" type="text" value="{{ Request::old($field) ? Request::old($field) : $user->$field }}">
+                 @endif
+                 
                     {{ ($errors->has($field) ? $errors->first($field) : '') }}
                 </div>
             </div>

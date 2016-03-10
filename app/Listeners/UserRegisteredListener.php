@@ -32,11 +32,15 @@ class UserRegisteredListener
 
         // Also generate for the test environment
         DB::setDefaultConnection('test');
+
         // Register for testing
+        $user = $user->toArray();
+        $user['permissions'] = !empty($user['permissions'])?$user['permissions']:null;
+      
         User::unguard();
-        User::create($user->toArray());
+        User::create($user);
         // Generating the key
-        ApiKey::where('user_id', $user->id) ->update($testKey->toArray());
+        ApiKey::where('user_id', $user['id']) ->update($testKey->toArray());
     }
 
 

@@ -8,6 +8,9 @@
         <li class="dropdown-toggle">
           <a href="{{ route('sentinel.logout') }}">Logout</a>
         </li>
+        <li class="dropdown-toggle">
+          <a href="#" class="btn btn-warning">{{ Sentry::getUser()->environment }}</a>
+        </li>
         <li {!! (Request::is('profile') ? 'class="dropdown-toggle active"' : '') !!} >
               <a href="{{ route('sentinel.profile.show') }}" >
               <span class="fa fa-cog"></span>

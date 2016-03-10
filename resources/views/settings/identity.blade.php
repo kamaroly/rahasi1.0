@@ -1,3 +1,4 @@
+<div class="col-sm-12 col-md-12" >
 <div class="row" style="color:red">
 {!! $errors->has('names') ? '<small class="has-error">'.$errors->first('names').'</small>' : '' !!}
 {!! $errors->has('address') ? '<small class="has-error">'.$errors->first('address').'</small>' : '' !!}
@@ -37,4 +38,14 @@
     <label for="contact_person_email" >{!! trans('merchant.contact_person_email') !!}</label>
     <input class="form-control" placeholder="{{ trans('merchant.contact_person_email') }}" name="contact_person_email" value="{!! $merchant->contact_person_email !!}" id="contact_person_email" type="text">
 </div>            
+</div>
+<div class="col-sm-6 col-md-6">
+<div class="form-group">
+     <input name="_token" value="{{ csrf_token() }}" type="hidden">
+   <input class="btn btn-primary" value="{{ trans('merchant.save_merchant') }}" type="submit">
+</div>            
+</div>
+  <div class="row">
+     
+  </div>
 </div>
