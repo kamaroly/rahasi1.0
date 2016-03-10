@@ -6,6 +6,8 @@
 @stop
 {{-- Content --}}
 @section('content')
+
+@include('partials.errors')
 <?php $user = Rahasi\Models\User::find(Sentry::getUser()->id); ?>
 <?php $merchant = Rahasi\Models\User::find($user->id)->merchant; ?>
 <?php $route = route('merchants.store',['hash'=>  $user->hash]);?>
