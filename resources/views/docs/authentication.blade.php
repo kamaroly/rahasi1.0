@@ -12,6 +12,10 @@ You do not need to provide a password.All API requests must be made over HTTPS.
 Calls made over plain HTTP will fail. API requests without authentication will also fail.
 </p>
 <p>
+You can send your request to <code class="language-console">rahasi.com</code> as host name or use rahasi public ip <code class="language-console">104.131.183.154</code>. 
+</p>
+
+<p>
     <h3>SAMPLE AUTHENTICATION ERROR</h3>
 <pre class="line-numbers">
 <code class="language-javascript">
