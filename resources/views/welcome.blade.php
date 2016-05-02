@@ -7,6 +7,7 @@
     <meta name="author" content="Rahasi">
     <meta name="description" content="Rahasi.">
     <meta name="keywords" content="Rahasi">
+    <meta name="google-site-verification" content="mfGlZGn127qk5Qu0rhg3icB8S4yzsDiPGUOxFDGyTQ4" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
