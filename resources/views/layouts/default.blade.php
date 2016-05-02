@@ -1,4 +1,5 @@
 <html lang="en">
+	<meta name="google-site-verification" content="mfGlZGn127qk5Qu0rhg3icB8S4yzsDiPGUOxFDGyTQ4" />
 @include('partials.header')
 <body>
   <div class="container">
