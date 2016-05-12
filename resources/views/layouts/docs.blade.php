@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>RAHASI</title>
+	<title>Havanao</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="author" content="Taylor Otwell">
 	<meta name="description" content="RAHASI.">
@@ -17,7 +17,7 @@
 	<nav class="main">
 		<div class="container">
 			<a href="/" class="brand">
-				RAHASI
+				Havanao
 			</a>
 
 			<div class="responsive-sidebar-nav">
